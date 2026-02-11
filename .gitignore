@@ -11,6 +11,7 @@ __pycache__/
 venv/
 
 # Generated files
+*-pandoc.md
 *.pdf
 *.aux
 *.log
