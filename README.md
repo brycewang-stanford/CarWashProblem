@@ -1,5 +1,9 @@
 # The Car Wash Problem: Benchmarking Implicit Goal Reasoning in LLMs
 
+<p align="center">
+  <img src="figures/fig1_carwash_overview.png" alt="The Car Wash Problem: Human vs AI reasoning" width="600">
+</p>
+
 > "The car wash is 50 meters from my home. Should I drive or walk there?"
 
 Every human instantly answers **drive** — because the *car* needs to be washed. Yet nearly all state-of-the-art LLMs recommend walking, completely missing the obvious. This paper formalizes this failure as **Implicit Goal Reasoning (IGR)** and introduces **IGR-Bench** to systematically evaluate it.
@@ -26,6 +30,8 @@ For example, asking about going to a car wash implicitly means the *car* needs w
 ├── paper/                  # Paper draft and LaTeX headers
 │   ├── CarWashProblem-draft-en.md
 │   └── paper-header.tex
+├── figures/                # Figures and illustrations
+│   └── fig1_carwash_overview.png
 ├── data/                   # Benchmark data and references
 │   ├── igr_bench_pilot.json        # IGR-Bench pilot (6 domains × 10 problems)
 │   └── carwash-news.md             # News coverage of the Car Wash Problem

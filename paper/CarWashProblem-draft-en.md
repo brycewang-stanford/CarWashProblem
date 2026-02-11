@@ -29,6 +29,8 @@ We argue that this failure reflects a broader deficiency we term **implicit goal
 
 Implicit goal reasoning is effortless for humans because we naturally understand the *purpose* behind questions. When someone asks about going to a car wash, we instantly infer they want their car cleaned. When someone asks about visiting a veterinarian, we infer they have a sick pet. These inferences are so automatic that they are rarely stated explicitly—creating a *reporting bias* [4] in text corpora that leaves LLMs without sufficient training signal for these trivially obvious facts.
 
+![Figure 1: The Car Wash Problem — Humans infer the implicit goal (wash the car) and drive, while AI models fixate on the explicit distance and recommend walking. IGR-Bench systematically evaluates this gap across domains and explicitness levels.](../figures/fig1_carwash_overview.png)
+
 This paper makes the following contributions:
 
 - **We formalize the implicit goal reasoning problem** as a distinct challenge for AI systems, connecting it to established theories of pragmatic inference [5], commonsense reasoning [6], and theory of mind [7].
