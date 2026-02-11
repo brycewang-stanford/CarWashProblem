@@ -4,12 +4,21 @@
 
 Every human instantly answers **drive** — because the *car* needs to be washed. Yet nearly all state-of-the-art LLMs recommend walking, completely missing the obvious. This paper formalizes this failure as **Implicit Goal Reasoning (IGR)** and introduces **IGR-Bench** to systematically evaluate it.
 
-## Overview
+## What is IGR-Bench?
 
-- **IGR-Bench**: 1,200 problems across 12 everyday domains, each requiring inference of an unstated goal
-- **Pilot study**: 10 LLMs from 5 providers (OpenAI, Anthropic, Google, DeepSeek, Moonshot)
-- **Key finding**: Even top models achieve only 25–77% accuracy on questions any human finds trivially easy
-- **Taxonomy**: 6 distinct failure modes identified (reporting bias, pragmatic inference failure, goal blindness, parametric heuristic override, grounding deficit, knowledge activation failure)
+**IGR-Bench** (Implicit Goal Reasoning Benchmark) is a diagnostic benchmark designed to test whether LLMs can infer the *unstated purpose* behind a question and use it to constrain their answer. Each problem contains a surface-level decision that seems straightforward but whose correct resolution requires recognizing an implicit goal from contextual cues — something humans do effortlessly.
+
+For example, asking about going to a car wash implicitly means the *car* needs washing; asking about visiting a vet implicitly means a *pet* is sick. IGR-Bench systematically tests this across 12 everyday domains with 4 levels of goal explicitness (L0–L3).
+
+## Key Results
+
+| Metric | Finding |
+| --- | --- |
+| **Benchmark** | 1,200 problems across 12 everyday domains (automotive, pet care, medical, home repair, etc.) |
+| **Models tested** | 10 LLMs from 5 providers (OpenAI, Anthropic, Google, DeepSeek, Moonshot) |
+| **Accuracy** | Even the best model (Gemini 2.5 Flash + CoT) achieves only **76.9%** on questions any human finds trivially easy |
+| **CoT boost** | Chain-of-thought prompting provides a consistent but insufficient ~20 pp improvement |
+| **Failure modes** | 6 distinct types: reporting bias, pragmatic inference failure, goal blindness, parametric heuristic override, grounding deficit, knowledge activation failure |
 
 ## Repository Structure
 
