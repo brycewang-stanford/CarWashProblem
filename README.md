@@ -34,8 +34,8 @@ Every human instantly answers **drive** — because the *car* needs to be washed
 
 ```bash
 # 1. Clone and install dependencies
-git clone https://github.com/yourusername/IGR-Bench.git
-cd IGR-Bench
+git clone https://github.com/brycewang-stanford/CarWashProblem.git
+cd CarWashProblem
 pip install -r requirements.txt
 
 # 2. Set up API keys
