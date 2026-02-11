@@ -1,0 +1,5 @@
+Model,Domain,Accuracy,N
+Claude Sonnet 4.5,automotive,0.23529411764705882,17
+DeepSeek-V3.2 Chat,automotive,0.5,12
+Gemini 2.5 Flash,automotive,0.625,16
+GPT-5,automotive,0.25,4

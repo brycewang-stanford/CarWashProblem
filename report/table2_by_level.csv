@@ -1,0 +1,15 @@
+Model,Level,Accuracy,N
+Claude Sonnet 4.5,L0,0.23529411764705882,17
+Claude Sonnet 4.5,L1,0.375,16
+Claude Sonnet 4.5,L2,0.375,16
+Claude Sonnet 4.5,L3,0.4375,16
+DeepSeek-V3.2 Chat,L0,0.5,12
+DeepSeek-V3.2 Chat,L1,0.5833333333333334,12
+DeepSeek-V3.2 Chat,L2,0.75,12
+DeepSeek-V3.2 Chat,L3,0.75,12
+Gemini 2.5 Flash,L0,0.625,16
+Gemini 2.5 Flash,L1,0.6666666666666666,12
+Gemini 2.5 Flash,L2,0.5833333333333334,12
+Gemini 2.5 Flash,L3,0.8333333333333334,12
+GPT-5,L0,0.25,4
+GPT-5,L1,0.25,4

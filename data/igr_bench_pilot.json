@@ -1,0 +1,1556 @@
+{
+  "metadata": {
+    "name": "IGR-Bench Pilot",
+    "version": "0.1.0",
+    "description": "Implicit Goal Reasoning Benchmark - Pilot Study (6 domains × 10 problems)",
+    "date": "2026-02-11",
+    "total_target_problems": 60,
+    "total_control_problems": 60,
+    "domains": 6,
+    "explicitness_levels": 4
+  },
+  "domains": [
+    {
+      "domain_id": "automotive",
+      "domain_name": "Automotive Services",
+      "implicit_goal_structure": "Object-of-service must be transported to service location",
+      "problems": [
+        {
+          "id": "auto_01",
+          "type": "target",
+          "implicit_goal": "The car needs to be physically present at the car wash",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The car wash is 50 meters from my home. Should I drive or walk there?",
+            "L1": "My car is covered in mud after a road trip, and the car wash is 50 meters from my home. Should I drive or walk there?",
+            "L2": "I need to get my car washed. The car wash is 50 meters from my home. Should I drive my car there or walk?",
+            "L3": "I need to bring my car to the car wash 50 meters away so it can be cleaned. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "洗车店离我家50米远，我应该开车去还是走路去？",
+            "L1": "我的车自驾游回来沾满了泥，洗车店离我家50米远，我应该开车去还是走路去？",
+            "L2": "我需要洗车。洗车店离我家50米远，我应该把车开过去还是走路过去？",
+            "L3": "我需要把车开到50米外的洗车店去清洗。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The grocery store is 50 meters from my home. Should I drive or walk there?",
+            "question_zh": "超市离我家50米远，我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "No implicit goal requiring a vehicle; walking is reasonable"
+          }
+        },
+        {
+          "id": "auto_02",
+          "type": "target",
+          "implicit_goal": "The car needs to be at the oil change shop for service",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The oil change shop is just around the corner, about 100 meters away. Should I drive there or walk?",
+            "L1": "My car is due for an oil change, and the shop is just around the corner, about 100 meters away. Should I drive there or walk?",
+            "L2": "I need to get my car's oil changed. The shop is 100 meters away. Should I drive my car there or walk over?",
+            "L3": "I need to bring my car to the oil change shop 100 meters away for an oil change. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "换机油的店就在拐角处，大约100米远。我应该开车去还是走路去？",
+            "L1": "我的车该换机油了，店就在拐角处，大约100米远。我应该开车去还是走路去？",
+            "L2": "我需要给车换机油。店在100米外。我应该把车开过去还是走路过去？",
+            "L3": "我需要把车开到100米外的店里换机油。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The convenience store is just around the corner, about 100 meters away. Should I drive there or walk?",
+            "question_zh": "便利店就在拐角处，大约100米远。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "No object-of-service to transport"
+          }
+        },
+        {
+          "id": "auto_03",
+          "type": "target",
+          "implicit_goal": "The car must be at the tire shop to have tires replaced",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The tire shop is 200 meters down the road. Should I drive or walk?",
+            "L1": "I noticed my front tire is worn and the tire shop is 200 meters down the road. Should I drive or walk?",
+            "L2": "I need new tires for my car. The tire shop is 200 meters away. Should I drive my car there or walk?",
+            "L3": "I need to bring my car to the tire shop 200 meters away to get new tires installed. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "轮胎店在路的前方200米处。我应该开车去还是走路去？",
+            "L1": "我注意到前轮磨损了，轮胎店在前方200米处。我应该开车去还是走路去？",
+            "L2": "我的车需要换新轮胎。轮胎店在200米外。我应该把车开过去还是走路？",
+            "L3": "我需要把车开到200米外的轮胎店去换新轮胎。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The bakery is 200 meters down the road. Should I drive or walk?",
+            "question_zh": "面包店在路的前方200米处。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "No vehicle-dependent service"
+          }
+        },
+        {
+          "id": "auto_04",
+          "type": "target",
+          "implicit_goal": "The car must be physically present for inspection",
+          "correct_answer": "drive",
+          "surface_distractor": "nearby location favors walking",
+          "levels": {
+            "L0": "The vehicle inspection center is across the street from my apartment. Should I drive or walk?",
+            "L1": "My car's annual inspection is due, and the inspection center is across the street from my apartment. Should I drive or walk?",
+            "L2": "I need to get my car inspected. The inspection center is across the street. Should I drive my car over or walk?",
+            "L3": "I need to bring my car to the inspection center across the street so it can be inspected. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "车辆年检中心就在我公寓对面。我应该开车去还是走路去？",
+            "L1": "我的车该年检了，年检中心就在我公寓对面。我应该开车去还是走路去？",
+            "L2": "我需要给车做年检。年检中心就在对面。我应该把车开过去还是走路过去？",
+            "L3": "我需要把车开到对面的年检中心接受检查。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The post office is across the street from my apartment. Should I drive or walk?",
+            "question_zh": "邮局就在我公寓对面。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Picking up mail doesn't require a car"
+          }
+        },
+        {
+          "id": "auto_05",
+          "type": "target",
+          "implicit_goal": "The car needs to be at the body shop for paint repair",
+          "correct_answer": "drive",
+          "surface_distractor": "very short distance favors walking",
+          "levels": {
+            "L0": "The auto body shop is 80 meters from my house. Should I drive or walk?",
+            "L1": "Someone scratched my car in the parking lot, and the auto body shop is 80 meters from my house. Should I drive or walk?",
+            "L2": "I need to get the scratch on my car repaired. The body shop is 80 meters away. Should I drive my car there or walk?",
+            "L3": "I need to bring my scratched car to the body shop 80 meters away for paint repair. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "汽车修理厂离我家80米。我应该开车去还是走路去？",
+            "L1": "有人在停车场刮了我的车，修理厂离我家80米。我应该开车去还是走路去？",
+            "L2": "我需要修理车上的划痕。修理厂在80米外。我应该把车开过去还是走路？",
+            "L3": "我需要把被刮的车开到80米外的修理厂去补漆。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The barber shop is 80 meters from my house. Should I drive or walk?",
+            "question_zh": "理发店离我家80米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Personal service, no object to transport"
+          }
+        },
+        {
+          "id": "auto_06",
+          "type": "target",
+          "implicit_goal": "The car must be present for windshield replacement",
+          "correct_answer": "drive",
+          "surface_distractor": "close distance favors walking",
+          "levels": {
+            "L0": "The auto glass repair shop is a 2-minute walk from my place. Should I drive or walk?",
+            "L1": "My windshield got cracked by a rock, and the auto glass repair shop is a 2-minute walk from my place. Should I drive or walk?",
+            "L2": "I need to get my car's windshield replaced. The auto glass shop is a 2-minute walk away. Should I drive my car or walk?",
+            "L3": "I need to bring my car to the auto glass shop 2 minutes away to replace the cracked windshield. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "汽车玻璃修理店离我家走路2分钟。我应该开车去还是走路去？",
+            "L1": "我的挡风玻璃被石子砸裂了，修理店离我家走路2分钟。我应该开车去还是走路去？",
+            "L2": "我需要换挡风玻璃。修理店走路2分钟就到。我应该把车开过去还是走路？",
+            "L3": "我需要把车开到2分钟路程外的修理店换挡风玻璃。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The pharmacy is a 2-minute walk from my place. Should I drive or walk?",
+            "question_zh": "药店离我家走路2分钟。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Picking up medicine doesn't require a vehicle"
+          }
+        },
+        {
+          "id": "auto_07",
+          "type": "target",
+          "implicit_goal": "The car needs to be at the gas station to refuel",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The gas station is 150 meters from my home. Should I drive or walk there?",
+            "L1": "My car's fuel tank is nearly empty and the gas station is 150 meters away. Should I drive or walk?",
+            "L2": "I need to fill up my car with gas. The gas station is 150 meters away. Should I drive my car there or walk?",
+            "L3": "I need to bring my car to the gas station 150 meters away to refuel. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "加油站离我家150米。我应该开车去还是走路去？",
+            "L1": "我的车油箱快空了，加油站离我家150米。我应该开车去还是走路去？",
+            "L2": "我需要给车加油。加油站在150米外。我应该把车开过去还是走路？",
+            "L3": "我需要把车开到150米外的加油站去加油。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The newsstand is 150 meters from my home. Should I drive or walk?",
+            "question_zh": "报刊亭离我家150米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Buying a newspaper doesn't require a car"
+          }
+        },
+        {
+          "id": "auto_08",
+          "type": "target",
+          "implicit_goal": "The car must be at the alignment shop for wheel alignment",
+          "correct_answer": "drive",
+          "surface_distractor": "walkable distance",
+          "levels": {
+            "L0": "The wheel alignment shop is 300 meters from here. Should I drive or walk?",
+            "L1": "My car has been pulling to the left, and the wheel alignment shop is 300 meters from here. Should I drive or walk?",
+            "L2": "I need a wheel alignment for my car. The shop is 300 meters away. Should I drive my car there or walk?",
+            "L3": "I need to bring my car to the alignment shop 300 meters away for wheel alignment. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "四轮定位店离这里300米。我应该开车去还是走路去？",
+            "L1": "我的车一直往左跑偏，四轮定位店离这里300米。我应该开车去还是走路去？",
+            "L2": "我的车需要做四轮定位。店在300米外。我应该把车开过去还是走路？",
+            "L3": "我需要把车开到300米外的店做四轮定位。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The coffee shop is 300 meters from here. Should I drive or walk?",
+            "question_zh": "咖啡店离这里300米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Getting coffee doesn't require a car"
+          }
+        },
+        {
+          "id": "auto_09",
+          "type": "target",
+          "implicit_goal": "The car must be at the mechanic for engine diagnostics",
+          "correct_answer": "drive",
+          "surface_distractor": "neighbor distance favors walking",
+          "levels": {
+            "L0": "The mechanic's garage is right next door to my building. Should I drive or walk?",
+            "L1": "My car has been making a strange noise, and the mechanic's garage is right next door. Should I drive or walk?",
+            "L2": "I need my car's engine checked. The mechanic is right next door. Should I drive my car over or walk?",
+            "L3": "I need to bring my car to the mechanic next door for an engine diagnostic. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "汽修厂就在我家隔壁。我应该开车去还是走路去？",
+            "L1": "我的车最近有异响，汽修厂就在隔壁。我应该开车去还是走路去？",
+            "L2": "我需要检查车的发动机。汽修厂就在隔壁。我应该把车开过去还是走路过去？",
+            "L3": "我需要把车开到隔壁的汽修厂做发动机检测。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The dry cleaner is right next door to my building. Should I drive or walk?",
+            "question_zh": "干洗店就在我家隔壁。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Dropping off clothes doesn't require a car"
+          }
+        },
+        {
+          "id": "auto_10",
+          "type": "target",
+          "implicit_goal": "The car must be at the detailing shop for interior cleaning",
+          "correct_answer": "drive",
+          "surface_distractor": "short walk favors walking",
+          "levels": {
+            "L0": "The car detailing shop is a 3-minute walk away. Should I drive or walk?",
+            "L1": "I spilled coffee all over my car seats, and the detailing shop is a 3-minute walk away. Should I drive or walk?",
+            "L2": "I need to get my car's interior professionally cleaned. The detailing shop is a 3-minute walk away. Should I drive or walk?",
+            "L3": "I need to bring my car to the detailing shop 3 minutes away so they can clean the interior. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "汽车美容店走路3分钟就到。我应该开车去还是走路去？",
+            "L1": "我把咖啡洒满了车座，汽车美容店走路3分钟就到。我应该开车去还是走路去？",
+            "L2": "我需要给车做专业内饰清洁。美容店走路3分钟。我应该把车开过去还是走路？",
+            "L3": "我需要把车开到3分钟路程外的美容店做内饰清洁。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The florist is a 3-minute walk away. Should I drive or walk?",
+            "question_zh": "花店走路3分钟就到。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Buying flowers doesn't require a car"
+          }
+        }
+      ]
+    },
+    {
+      "domain_id": "pet_care",
+      "domain_name": "Pet Care",
+      "implicit_goal_structure": "Living dependent (pet) must accompany the person to the service location",
+      "problems": [
+        {
+          "id": "pet_01",
+          "type": "target",
+          "implicit_goal": "The cat must be brought to the vet for treatment",
+          "correct_answer": "taxi",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The veterinary clinic is 200 meters from my apartment. Should I take a taxi or walk?",
+            "L1": "My cat seems sick, and the vet clinic is 200 meters from my apartment. Should I take a taxi or walk?",
+            "L2": "I need to take my cat to the vet. The clinic is 200 meters away. Should I take a taxi with my cat or walk?",
+            "L3": "I need to bring my sick cat to the vet 200 meters away for treatment. Should I take a taxi or walk?"
+          },
+          "levels_zh": {
+            "L0": "宠物医院离我家200米。我应该打车去还是走路去？",
+            "L1": "我的猫好像生病了，宠物医院离我家200米。我应该打车去还是走路去？",
+            "L2": "我需要带猫去看兽医。宠物医院在200米外。我应该打车带猫去还是走路？",
+            "L3": "我需要带生病的猫去200米外的宠物医院治疗。我应该打车去还是走路去？"
+          },
+          "control": {
+            "question": "The library is 200 meters from my apartment. Should I take a taxi or walk?",
+            "question_zh": "图书馆离我家200米。我应该打车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "No dependent to transport"
+          }
+        },
+        {
+          "id": "pet_02",
+          "type": "target",
+          "implicit_goal": "The large dog must be transported to the grooming salon",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The pet grooming salon is 100 meters away. Should I drive or walk?",
+            "L1": "My 40kg German Shepherd needs grooming, and the salon is 100 meters away. Should I drive or walk?",
+            "L2": "I need to bring my large dog to the groomer. The salon is 100 meters away. Should I drive with my dog or walk?",
+            "L3": "I need to transport my 40kg German Shepherd to the grooming salon 100 meters away. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "宠物美容店离我100米远。我应该开车去还是走路去？",
+            "L1": "我家40公斤的德牧需要美容，店在100米外。我应该开车去还是走路去？",
+            "L2": "我需要带大型犬去美容。店在100米外。我应该开车带狗去还是走路？",
+            "L3": "我需要把40公斤的德牧运到100米外的宠物美容店。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The bookstore is 100 meters away. Should I drive or walk?",
+            "question_zh": "书店离我100米远。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "No large animal to transport"
+          }
+        },
+        {
+          "id": "pet_03",
+          "type": "target",
+          "implicit_goal": "Multiple pets need to be transported safely",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The pet boarding facility is just down the street, about 150 meters. Should I drive or walk?",
+            "L1": "I'm going on vacation and need to drop off my three cats at the boarding facility 150 meters away. Should I drive or walk?",
+            "L2": "I need to bring my three cats to the boarding facility. It's 150 meters away. Should I drive with the carriers or walk?",
+            "L3": "I need to transport three cat carriers to the pet boarding facility 150 meters away. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "宠物寄养中心就在街的那头，大约150米。我应该开车去还是走路去？",
+            "L1": "我要去度假，需要把三只猫送到150米外的寄养中心。我应该开车去还是走路去？",
+            "L2": "我需要带三只猫去寄养。中心在150米外。我应该开车带笼子去还是走路？",
+            "L3": "我需要运送三个猫笼到150米外的宠物寄养中心。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The gym is just down the street, about 150 meters. Should I drive or walk?",
+            "question_zh": "健身房就在街的那头，大约150米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Going to the gym alone, no cargo"
+          }
+        },
+        {
+          "id": "pet_04",
+          "type": "target",
+          "implicit_goal": "A fish tank (heavy, fragile) must be brought to the aquarium store",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The aquarium store is 80 meters from my home. Should I drive or walk?",
+            "L1": "My fish tank has a leak and the aquarium store that does repairs is 80 meters away. Should I drive or walk?",
+            "L2": "I need to bring my leaking fish tank to the aquarium store for repair. It's 80 meters away. Should I drive or walk?",
+            "L3": "I need to transport my heavy glass fish tank to the aquarium store 80 meters away for leak repair. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "水族店离我家80米。我应该开车去还是走路去？",
+            "L1": "我的鱼缸漏水了，做维修的水族店在80米外。我应该开车去还是走路去？",
+            "L2": "我需要把漏水的鱼缸带到水族店修理。店在80米外。我应该开车去还是走路？",
+            "L3": "我需要把沉重的玻璃鱼缸运到80米外的水族店修理漏水。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The fruit stand is 80 meters from my home. Should I drive or walk?",
+            "question_zh": "水果摊离我家80米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Buying some fruit is light enough to carry"
+          }
+        },
+        {
+          "id": "pet_05",
+          "type": "target",
+          "implicit_goal": "The dog needs to be at the training facility",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The dog training center is 250 meters from my house. Should I drive or walk?",
+            "L1": "My new puppy has its first obedience class, and the training center is 250 meters away. Should I drive or walk?",
+            "L2": "I need to bring my puppy to dog training class. The center is 250 meters away. Should I drive with my puppy or walk?",
+            "L3": "I need to transport my untrained puppy to the training center 250 meters away for its first class. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "犬类训练中心离我家250米。我应该开车去还是走路去？",
+            "L1": "我的新小狗要上第一节训导课，训练中心在250米外。我应该开车去还是走路去？",
+            "L2": "我需要带小狗去上训导课。中心在250米外。我应该开车带狗去还是走路？",
+            "L3": "我需要把未经训练的小狗运到250米外的训练中心上第一节课。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The ATM is 250 meters from my house. Should I drive or walk?",
+            "question_zh": "ATM机离我家250米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Simple errand, no cargo"
+          }
+        },
+        {
+          "id": "pet_06",
+          "type": "target",
+          "implicit_goal": "An injured pet bird in a cage must be transported carefully",
+          "correct_answer": "drive",
+          "surface_distractor": "very close distance favors walking",
+          "levels": {
+            "L0": "The avian vet is just across the parking lot from my building. Should I drive or walk?",
+            "L1": "My parrot injured its wing, and the avian vet is just across the parking lot. Should I drive or walk?",
+            "L2": "I need to take my injured parrot in its cage to the avian vet across the parking lot. Should I drive or walk?",
+            "L3": "I need to carefully transport my injured parrot in its large cage to the avian vet across the parking lot. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "鸟类专科兽医就在停车场对面。我应该开车去还是走路去？",
+            "L1": "我的鹦鹉翅膀受伤了，鸟类兽医就在停车场对面。我应该开车去还是走路去？",
+            "L2": "我需要带受伤的鹦鹉连笼子去对面的鸟类兽医。我应该开车去还是走路？",
+            "L3": "我需要小心地运送受伤的鹦鹉和它的大笼子到停车场对面的鸟类兽医。开车还是走路？"
+          },
+          "control": {
+            "question": "The mailbox is just across the parking lot from my building. Should I drive or walk?",
+            "question_zh": "邮筒就在停车场对面。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Mailing a letter is trivial"
+          }
+        },
+        {
+          "id": "pet_07",
+          "type": "target",
+          "implicit_goal": "A large dog kennel/crate must be picked up",
+          "correct_answer": "drive",
+          "surface_distractor": "close store favors walking",
+          "levels": {
+            "L0": "The pet supply store is 120 meters from my home. Should I drive or walk to pick up my order?",
+            "L1": "I ordered a large dog crate, and the pet supply store is 120 meters away. Should I drive or walk to pick it up?",
+            "L2": "I need to pick up the large dog crate I ordered. The store is 120 meters away. Should I drive or walk?",
+            "L3": "I need to transport a large, heavy dog crate from the pet store 120 meters away to my home. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "宠物用品店离我家120米。我应该开车还是走路去取我的订单？",
+            "L1": "我订了一个大型狗笼，宠物用品店在120米外。我应该开车还是走路去取？",
+            "L2": "我需要去取我订的大型狗笼。店在120米外。我应该开车去还是走路去？",
+            "L3": "我需要从120米外的宠物店把一个大而重的狗笼运回家。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The pet supply store is 120 meters from my home. Should I drive or walk to buy some dog treats?",
+            "question_zh": "宠物用品店离我家120米。我应该开车还是走路去买些狗零食？",
+            "correct_answer": "walk",
+            "note": "Dog treats are small and light"
+          }
+        },
+        {
+          "id": "pet_08",
+          "type": "target",
+          "implicit_goal": "A terrarium with a reptile must be transported",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The reptile vet is 180 meters from my apartment. Should I drive or walk?",
+            "L1": "My bearded dragon hasn't been eating, and the reptile vet is 180 meters away. Should I drive or walk?",
+            "L2": "I need to bring my bearded dragon to the reptile vet. The clinic is 180 meters away. Should I drive with the terrarium or walk?",
+            "L3": "I need to transport my bearded dragon in its terrarium to the reptile vet 180 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "爬行动物兽医离我家180米。我应该开车去还是走路去？",
+            "L1": "我的蜥蜴不吃东西了，爬行动物兽医在180米外。我应该开车去还是走路去？",
+            "L2": "我需要带蜥蜴去看爬行动物兽医。诊所在180米外。我应该开车带着饲养箱去还是走路？",
+            "L3": "我需要把蜥蜴连同饲养箱运到180米外的爬行动物兽医处。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The dentist is 180 meters from my apartment. Should I drive or walk?",
+            "question_zh": "牙医诊所离我家180米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Personal appointment, no cargo"
+          }
+        },
+        {
+          "id": "pet_09",
+          "type": "target",
+          "implicit_goal": "Multiple bags of heavy pet food must be picked up",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The pet food store is 100 meters away. Should I drive or walk to pick up my monthly order?",
+            "L1": "I ordered six 15kg bags of dog food, and the store is 100 meters away. Should I drive or walk?",
+            "L2": "I need to pick up six large bags of dog food from the store 100 meters away. Should I drive or walk?",
+            "L3": "I need to transport 90kg of dog food from the store 100 meters away to my home. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "宠物粮店离我100米。我应该开车还是走路去取我的月度订单？",
+            "L1": "我订了六袋15公斤的狗粮，店在100米外。我应该开车去还是走路去？",
+            "L2": "我需要从100米外的店取六大袋狗粮。我应该开车去还是走路去？",
+            "L3": "我需要把90公斤的狗粮从100米外的店运回家。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The pet food store is 100 meters away. Should I drive or walk to buy a bag of cat treats?",
+            "question_zh": "宠物粮店离我100米。我应该开车还是走路去买一包猫零食？",
+            "correct_answer": "walk",
+            "note": "A single small bag is easy to carry"
+          }
+        },
+        {
+          "id": "pet_10",
+          "type": "target",
+          "implicit_goal": "The pet must be at the vaccination clinic",
+          "correct_answer": "drive",
+          "surface_distractor": "close distance favors walking",
+          "levels": {
+            "L0": "The pet vaccination clinic is on the ground floor of my building. Should I drive or walk?",
+            "L1": "My kitten needs its first shots, and the vaccination clinic is on the ground floor of my building. Should I drive or take the elevator?",
+            "L2": "I need to bring my kitten for vaccinations. The clinic is on the ground floor. Should I carry the cat down or is there another way?",
+            "L3": "I need to bring my kitten in a carrier to the vaccination clinic on the ground floor for its first shots. Walk down or drive around?"
+          },
+          "levels_zh": {
+            "L0": "宠物疫苗诊所就在我家楼下。我应该开车去还是走下去？",
+            "L1": "我的小猫需要打第一针疫苗，诊所就在我家楼下。我应该怎么去？",
+            "L2": "我需要带小猫去打疫苗。诊所在楼下。我应该抱猫走下去还是开车绕过去？",
+            "L3": "我需要带着猫笼里的小猫去楼下的诊所打疫苗。走下去还是开车绕过去？"
+          },
+          "control": {
+            "question": "The convenience store is on the ground floor of my building. Should I drive or take the elevator?",
+            "question_zh": "便利店就在我家楼下。我应该开车去还是坐电梯下去？",
+            "correct_answer": "walk",
+            "note": "Just going downstairs, trivial"
+          }
+        }
+      ]
+    },
+    {
+      "domain_id": "sports",
+      "domain_name": "Sports & Recreation",
+      "implicit_goal_structure": "Equipment must be brought to the service/repair location",
+      "problems": [
+        {
+          "id": "sport_01",
+          "type": "target",
+          "implicit_goal": "The bicycle must be at the bike shop for repair",
+          "correct_answer": "ride the bike",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The bike shop is 300 meters from my house. Should I walk or ride my bike there?",
+            "L1": "My bike's gears are grinding, and the bike shop is 300 meters away. Should I walk or ride there?",
+            "L2": "I need to get my bike repaired. The shop is 300 meters away. Should I walk or ride my bike there?",
+            "L3": "I need to bring my bike to the shop 300 meters away for gear repair. Should I walk or ride it there?"
+          },
+          "levels_zh": {
+            "L0": "自行车店离我家300米。我应该走路去还是骑车去？",
+            "L1": "我的自行车变速器有问题，车店在300米外。我应该走路去还是骑车去？",
+            "L2": "我需要修自行车。车店在300米外。我应该走路去还是把车骑过去？",
+            "L3": "我需要把自行车骑到300米外的车店修理变速器。我应该走路去还是骑车去？"
+          },
+          "control": {
+            "question": "The bike shop is 300 meters from my house. Should I walk or ride my bike there to buy a water bottle?",
+            "question_zh": "自行车店离我家300米。我想去买个水壶，应该走路去还是骑车去？",
+            "correct_answer": "either",
+            "note": "Buying an accessory doesn't require the bike"
+          }
+        },
+        {
+          "id": "sport_02",
+          "type": "target",
+          "implicit_goal": "Skis must be transported to the tuning shop",
+          "correct_answer": "drive",
+          "surface_distractor": "walkable distance",
+          "levels": {
+            "L0": "The ski tuning shop is 200 meters from my lodge. Should I drive or walk?",
+            "L1": "My skis need sharpening before tomorrow's run, and the tuning shop is 200 meters away. Should I drive or walk?",
+            "L2": "I need to get my skis tuned. The shop is 200 meters from my lodge. Should I drive with my skis or walk?",
+            "L3": "I need to carry my heavy skis and poles to the tuning shop 200 meters away. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "滑雪板调试店离我住的旅馆200米。我应该开车去还是走路去？",
+            "L1": "我的滑雪板需要磨刃，明天要滑雪，调试店在200米外。我应该开车去还是走路去？",
+            "L2": "我需要把滑雪板拿去调试。店在200米外。我应该开车带着滑雪板去还是走路？",
+            "L3": "我需要把沉重的滑雪板和雪杖运到200米外的调试店。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The ski lodge bar is 200 meters from my room. Should I drive or walk?",
+            "question_zh": "滑雪场的酒吧离我房间200米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Going for a drink, no equipment"
+          }
+        },
+        {
+          "id": "sport_03",
+          "type": "target",
+          "implicit_goal": "Tennis racket must be brought for restringing",
+          "correct_answer": "walk_with_racket",
+          "surface_distractor": "Question frames it as a transport decision; racket is portable but must not be forgotten",
+          "levels": {
+            "L0": "The sports equipment shop that does racket restringing is 100 meters away. Should I go now or later?",
+            "L1": "My tennis racket strings just snapped, and the restringing shop is 100 meters away. Should I go now or wait until tomorrow?",
+            "L2": "I need to get my racket restrung. The shop is 100 meters away. Should I bring it now or ship it?",
+            "L3": "I need to bring my broken racket to the restringing shop 100 meters away. Should I walk it over now or ship it?"
+          },
+          "levels_zh": {
+            "L0": "做球拍穿线的体育用品店在100米外。我应该现在去还是等一下？",
+            "L1": "我的网球拍线断了，穿线店在100米外。我应该现在去还是明天再去？",
+            "L2": "我需要给球拍重新穿线。店在100米外。我应该现在拿过去还是快递过去？",
+            "L3": "我需要把断线的球拍拿到100米外的店去穿线。我应该现在走过去还是快递？"
+          },
+          "control": {
+            "question": "The sports equipment shop is 100 meters away. Should I go now or later to buy tennis balls?",
+            "question_zh": "体育用品店在100米外。我应该现在去还是等一下去买网球？",
+            "correct_answer": "either",
+            "note": "Buying tennis balls doesn't require bringing equipment"
+          }
+        },
+        {
+          "id": "sport_04",
+          "type": "target",
+          "implicit_goal": "Golf clubs must be transported for regripping",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The golf pro shop is 150 meters from the parking lot. Should I drive closer or walk?",
+            "L1": "My golf club grips are worn out, and the pro shop is 150 meters away. Should I drive or walk?",
+            "L2": "I need to get my golf clubs regripped. The pro shop is 150 meters away. Should I drive with my clubs or walk?",
+            "L3": "I need to bring my full set of golf clubs to the pro shop 150 meters away for regripping. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "高尔夫球具店离停车场150米。我应该把车开近一点还是走过去？",
+            "L1": "我的球杆握把磨损了，球具店在150米外。我应该开车去还是走路去？",
+            "L2": "我需要给球杆换握把。球具店在150米外。我应该开车带球杆去还是走路？",
+            "L3": "我需要把整套高尔夫球杆运到150米外的球具店换握把。开车还是走路？"
+          },
+          "control": {
+            "question": "The golf pro shop is 150 meters away. Should I drive or walk to buy some golf balls?",
+            "question_zh": "高尔夫球具店在150米外。我想去买几个高尔夫球，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Golf balls are small and light"
+          }
+        },
+        {
+          "id": "sport_05",
+          "type": "target",
+          "implicit_goal": "Surfboard must be transported for repair",
+          "correct_answer": "drive",
+          "surface_distractor": "beach proximity favors walking",
+          "levels": {
+            "L0": "The surf shop is 100 meters down the beach. Should I drive or walk?",
+            "L1": "I dinged my surfboard and the surf shop is 100 meters down the beach. Should I drive or walk?",
+            "L2": "I need to get my surfboard repaired. The shop is 100 meters away. Should I drive with my board or walk?",
+            "L3": "I need to carry my 7-foot surfboard to the repair shop 100 meters down the beach. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "冲浪店在海滩前方100米。我应该开车去还是走路去？",
+            "L1": "我的冲浪板磕坏了，冲浪店在100米外。我应该开车去还是走路去？",
+            "L2": "我需要修冲浪板。店在100米外。我应该开车带板子去还是走路？",
+            "L3": "我需要扛着2米长的冲浪板去100米外的店修理。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The surf shop is 100 meters down the beach. Should I drive or walk to buy sunscreen?",
+            "question_zh": "冲浪店在海滩前方100米。我想去买防晒霜，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Buying sunscreen requires no equipment"
+          }
+        },
+        {
+          "id": "sport_06",
+          "type": "target",
+          "implicit_goal": "Kayak must be transported to the repair shop",
+          "correct_answer": "drive",
+          "surface_distractor": "nearby favors walking",
+          "levels": {
+            "L0": "The boat repair shop is 250 meters from the marina. Should I drive or walk?",
+            "L1": "My kayak has a crack in the hull, and the repair shop is 250 meters away. Should I drive or walk?",
+            "L2": "I need to get my kayak repaired. The shop is 250 meters away. Should I drive with my kayak on the roof or walk?",
+            "L3": "I need to transport my 4-meter kayak to the repair shop 250 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "船只维修店离码头250米。我应该开车去还是走路去？",
+            "L1": "我的皮划艇船体裂了，维修店在250米外。我应该开车去还是走路去？",
+            "L2": "我需要修皮划艇。维修店在250米外。我应该开车把皮划艇放车顶去还是走路？",
+            "L3": "我需要把4米长的皮划艇运到250米外的维修店。开车还是走路？"
+          },
+          "control": {
+            "question": "The marina café is 250 meters away. Should I drive or walk?",
+            "question_zh": "码头咖啡馆在250米外。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Getting coffee, no cargo"
+          }
+        },
+        {
+          "id": "sport_07",
+          "type": "target",
+          "implicit_goal": "Snowboard must be brought for waxing",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance in ski village",
+          "levels": {
+            "L0": "The snowboard wax shop is 120 meters from my chalet. Should I drive or walk?",
+            "L1": "My snowboard base is dry and needs waxing. The shop is 120 meters from my chalet. Should I drive or walk?",
+            "L2": "I need to get my snowboard waxed. The shop is 120 meters away. Should I drive with my board or walk?",
+            "L3": "I need to bring my snowboard to the wax shop 120 meters away for base treatment. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "滑雪板打蜡店离我的小屋120米。我应该开车去还是走路去？",
+            "L1": "我的滑雪板底面干了需要打蜡，店在120米外。我应该开车去还是走路去？",
+            "L2": "我需要给滑雪板打蜡。店在120米外。我应该开车带板子去还是走路？",
+            "L3": "我需要把滑雪板拿到120米外的店去做底面保养。开车还是走路？"
+          },
+          "control": {
+            "question": "The hot chocolate stand is 120 meters from my chalet. Should I drive or walk?",
+            "question_zh": "热巧克力摊离我的小屋120米。我应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Getting a drink, no equipment"
+          }
+        },
+        {
+          "id": "sport_08",
+          "type": "target",
+          "implicit_goal": "Scuba gear (heavy) must be brought for servicing",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The dive shop is 200 meters from my hotel. Should I drive or walk?",
+            "L1": "My scuba regulator needs servicing, and the dive shop is 200 meters from my hotel. Should I drive or walk?",
+            "L2": "I need to bring my full scuba gear set for servicing. The dive shop is 200 meters away. Should I drive or walk?",
+            "L3": "I need to transport my 25kg scuba gear set to the dive shop 200 meters away for servicing. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "潜水店离我酒店200米。我应该开车去还是走路去？",
+            "L1": "我的潜水调节器需要保养，潜水店在200米外。我应该开车去还是走路去？",
+            "L2": "我需要带全套潜水装备去保养。潜水店在200米外。我应该开车去还是走路？",
+            "L3": "我需要把25公斤重的全套潜水装备运到200米外的潜水店做保养。开车还是走路？"
+          },
+          "control": {
+            "question": "The dive shop is 200 meters from my hotel. Should I drive or walk to sign up for a class?",
+            "question_zh": "潜水店离我酒店200米。我想去报名潜水课，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Signing up requires no equipment"
+          }
+        },
+        {
+          "id": "sport_09",
+          "type": "target",
+          "implicit_goal": "A treadmill must be transported for repair",
+          "correct_answer": "drive",
+          "surface_distractor": "nearby store",
+          "levels": {
+            "L0": "The fitness equipment repair shop is 180 meters from my house. Should I drive or walk?",
+            "L1": "My treadmill belt keeps slipping, and the repair shop is 180 meters away. Should I drive or walk?",
+            "L2": "I need to get my treadmill repaired. The shop is 180 meters away. Should I drive or walk?",
+            "L3": "I need to transport my heavy treadmill to the repair shop 180 meters away. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "健身器材维修店离我家180米。我应该开车去还是走路去？",
+            "L1": "我的跑步机皮带打滑，维修店在180米外。我应该开车去还是走路去？",
+            "L2": "我需要修跑步机。维修店在180米外。我应该开车去还是走路去？",
+            "L3": "我需要把沉重的跑步机运到180米外的维修店。我应该开车去还是走路去？"
+          },
+          "control": {
+            "question": "The fitness equipment shop is 180 meters away. Should I drive or walk to buy a yoga mat?",
+            "question_zh": "健身器材店在180米外。我想去买个瑜伽垫，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "A yoga mat is light and portable"
+          }
+        },
+        {
+          "id": "sport_10",
+          "type": "target",
+          "implicit_goal": "Archery bow must be brought for restringing",
+          "correct_answer": "walk_with_bow",
+          "surface_distractor": "question frames it as transport decision",
+          "levels": {
+            "L0": "The archery pro shop is 80 meters from the range. Should I go now or come back tomorrow?",
+            "L1": "My bow string frayed during practice, and the pro shop is 80 meters away. Should I go now or come back tomorrow?",
+            "L2": "I need to get my bow restrung. The pro shop is 80 meters from the range. Should I bring it now or later?",
+            "L3": "I need to bring my compound bow to the pro shop 80 meters away for restringing. Go now or tomorrow?"
+          },
+          "levels_zh": {
+            "L0": "射箭专业店离射击场80米。我应该现在去还是明天再来？",
+            "L1": "我的弓弦练习时磨损了，专业店在80米外。我应该现在去还是明天再来？",
+            "L2": "我需要给弓换弦。专业店在80米外。我应该现在带过去还是以后再说？",
+            "L3": "我需要把复合弓拿到80米外的专业店换弦。现在去还是明天？"
+          },
+          "control": {
+            "question": "The archery pro shop is 80 meters from the range. Should I go now or later to buy some arrows?",
+            "question_zh": "射箭专业店离射击场80米。我想去买几支箭，现在去还是等一下？",
+            "correct_answer": "either",
+            "note": "Buying arrows doesn't require bringing the bow"
+          }
+        }
+      ]
+    },
+    {
+      "domain_id": "music",
+      "domain_name": "Musical Instruments",
+      "implicit_goal_structure": "Large/heavy instrument constrains logistics or service must come to instrument",
+      "problems": [
+        {
+          "id": "music_01",
+          "type": "target",
+          "implicit_goal": "Piano cannot be moved; tuner must come to the home",
+          "correct_answer": "have_tuner_come",
+          "surface_distractor": "question implies you should go to the tuner",
+          "levels": {
+            "L0": "The piano tuner's office is 500 meters from my home. Should I go there or have them come to me?",
+            "L1": "My piano sounds off-key, and the tuner's office is 500 meters away. Should I go there or have them come over?",
+            "L2": "I need my piano tuned. The tuner's office is 500 meters away. Should I go to their office or have them come to my home?",
+            "L3": "I need my piano tuned but it's too heavy to move. The tuner is 500 meters away. Should I go there or have them come?"
+          },
+          "levels_zh": {
+            "L0": "钢琴调音师的工作室离我家500米。我应该去那里还是让他上门？",
+            "L1": "我的钢琴音不准了，调音师工作室在500米外。我应该去那里还是让他来？",
+            "L2": "我需要给钢琴调音。调音师在500米外。我应该去他工作室还是请他上门？",
+            "L3": "我需要调钢琴但钢琴太重搬不动。调音师在500米外。我应该去还是请他来？"
+          },
+          "control": {
+            "question": "The music teacher's studio is 500 meters from my home. Should I go there or have them come to me for a singing lesson?",
+            "question_zh": "音乐老师的工作室离我家500米。唱歌课我应该去那里上还是让老师上门？",
+            "correct_answer": "either",
+            "note": "Singing lessons don't require transporting a heavy instrument"
+          }
+        },
+        {
+          "id": "music_02",
+          "type": "target",
+          "implicit_goal": "Guitar must be brought to the luthier for repair",
+          "correct_answer": "bring_guitar",
+          "surface_distractor": "question omits mentioning bringing the instrument",
+          "levels": {
+            "L0": "The guitar repair shop is 150 meters away. Should I go today or schedule for next week?",
+            "L1": "My guitar's neck is warped, and the repair shop is 150 meters away. Should I go today or next week?",
+            "L2": "I need to get my guitar's neck adjusted. The shop is 150 meters away. Should I bring it today or next week?",
+            "L3": "I need to bring my warped guitar to the repair shop 150 meters away for a neck adjustment. Today or next week?"
+          },
+          "levels_zh": {
+            "L0": "吉他修理店在150米外。我应该今天去还是约下周？",
+            "L1": "我的吉他琴颈弯了，修理店在150米外。我应该今天去还是下周？",
+            "L2": "我需要调整吉他琴颈。修理店在150米外。我应该今天带去还是下周？",
+            "L3": "我需要把弯曲的吉他拿到150米外的修理店调整琴颈。今天还是下周？"
+          },
+          "control": {
+            "question": "The music store is 150 meters away. Should I go today or next week to buy guitar strings?",
+            "question_zh": "琴行在150米外。我想买吉他弦，应该今天去还是下周？",
+            "correct_answer": "either",
+            "note": "Buying strings doesn't require bringing the guitar"
+          }
+        },
+        {
+          "id": "music_03",
+          "type": "target",
+          "implicit_goal": "Cello is large and must be transported carefully",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The luthier's workshop is 200 meters from my apartment. Should I drive or walk?",
+            "L1": "My cello has a crack in the body, and the luthier is 200 meters away. Should I drive or walk?",
+            "L2": "I need to bring my cello for repair. The luthier is 200 meters away. Should I drive with the cello or walk?",
+            "L3": "I need to carefully transport my fragile cello to the luthier 200 meters away for crack repair. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "提琴工坊离我公寓200米。我应该开车去还是走路去？",
+            "L1": "我的大提琴琴身裂了，工坊在200米外。我应该开车去还是走路去？",
+            "L2": "我需要带大提琴去修。工坊在200米外。我应该开车带琴去还是走路？",
+            "L3": "我需要小心地把易碎的大提琴运到200米外的工坊修裂缝。开车还是走路？"
+          },
+          "control": {
+            "question": "The music school is 200 meters from my apartment. Should I drive or walk to attend a lecture?",
+            "question_zh": "音乐学校离我公寓200米。去听讲座应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Attending a lecture requires no large instrument"
+          }
+        },
+        {
+          "id": "music_04",
+          "type": "target",
+          "implicit_goal": "Drum kit (bulky, heavy) must be transported to the venue",
+          "correct_answer": "drive",
+          "surface_distractor": "venue is nearby",
+          "levels": {
+            "L0": "The rehearsal studio is just around the block, about 100 meters. Should I drive or walk?",
+            "L1": "We have band rehearsal tonight and I play drums. The studio is 100 meters away. Should I drive or walk?",
+            "L2": "I need to bring my drum kit to rehearsal. The studio is 100 meters away. Should I drive with the drums or walk?",
+            "L3": "I need to transport my full drum kit (kick drum, toms, cymbals, stands) to the studio 100 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "排练室就在街区拐角，大约100米。我应该开车去还是走路去？",
+            "L1": "今晚有乐队排练，我是鼓手。排练室在100米外。我应该开车去还是走路去？",
+            "L2": "我需要带鼓组去排练。排练室在100米外。我应该开车带鼓组去还是走路？",
+            "L3": "我需要把整套鼓（大鼓、通鼓、镲、架子）运到100米外的排练室。开车还是走路？"
+          },
+          "control": {
+            "question": "The rehearsal studio is 100 meters away. Should I drive or walk to watch my friend's band practice?",
+            "question_zh": "排练室在100米外。我去看朋友乐队排练，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Watching requires no equipment"
+          }
+        },
+        {
+          "id": "music_05",
+          "type": "target",
+          "implicit_goal": "Keyboard/synthesizer is heavy and must be transported",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance",
+          "levels": {
+            "L0": "The music venue is 180 meters from my apartment. Should I drive or walk to the gig?",
+            "L1": "I have a keyboard gig tonight, and the venue is 180 meters from my apartment. Should I drive or walk?",
+            "L2": "I need to bring my keyboard to the gig. The venue is 180 meters away. Should I drive with it or walk?",
+            "L3": "I need to transport my 20kg stage keyboard and stand to the venue 180 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "演出场地离我公寓180米。我应该开车去还是走路去演出？",
+            "L1": "今晚有键盘演出，场地在180米外。我应该开车去还是走路去？",
+            "L2": "我需要带电子琴去演出。场地在180米外。我应该开车带琴去还是走路？",
+            "L3": "我需要把20公斤的舞台电子琴和琴架运到180米外的演出场地。开车还是走路？"
+          },
+          "control": {
+            "question": "The music venue is 180 meters from my apartment. Should I drive or walk to see a concert?",
+            "question_zh": "演出场地离我公寓180米。我去看演唱会，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Audience member, no equipment"
+          }
+        },
+        {
+          "id": "music_06",
+          "type": "target",
+          "implicit_goal": "Amplifier is heavy and must be brought to the jam session",
+          "correct_answer": "drive",
+          "surface_distractor": "friend's house is close",
+          "levels": {
+            "L0": "My friend's house where we jam is 120 meters away. Should I drive or walk?",
+            "L1": "I play electric guitar and we're jamming at my friend's place 120 meters away. Should I drive or walk?",
+            "L2": "I need to bring my guitar amp to my friend's house 120 meters away for our jam session. Drive or walk?",
+            "L3": "I need to transport my heavy guitar amplifier and pedalboard to my friend's house 120 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "我们jam的朋友家在120米外。我应该开车去还是走路去？",
+            "L1": "我弹电吉他，今晚去朋友家jam，120米外。我应该开车去还是走路去？",
+            "L2": "我需要带吉他音箱去朋友家jam。他家在120米外。我应该开车带去还是走路？",
+            "L3": "我需要把沉重的吉他音箱和效果器板运到120米外的朋友家。开车还是走路？"
+          },
+          "control": {
+            "question": "My friend's house is 120 meters away. Should I drive or walk to hang out?",
+            "question_zh": "朋友家在120米外。我去串门，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Social visit, no heavy equipment"
+          }
+        },
+        {
+          "id": "music_07",
+          "type": "target",
+          "implicit_goal": "Violin needs professional setup; must bring it to the shop",
+          "correct_answer": "bring_violin",
+          "surface_distractor": "question focuses on timing not transport",
+          "levels": {
+            "L0": "The violin shop is 90 meters from my school. Should I go during lunch break or after school?",
+            "L1": "My violin bridge collapsed and the shop is 90 meters from school. Should I go during lunch or after school?",
+            "L2": "I need to get my violin's bridge replaced. The shop is 90 meters away. Should I bring it during lunch or after school?",
+            "L3": "I need to bring my violin to the shop 90 meters away for a bridge replacement. Lunch break or after school?"
+          },
+          "levels_zh": {
+            "L0": "小提琴店离我学校90米。我应该午休去还是放学后去？",
+            "L1": "我的小提琴琴桥塌了，琴店离学校90米。我应该午休去还是放学后去？",
+            "L2": "我需要换小提琴琴桥。琴店在90米外。我应该午休时带琴去还是放学后？",
+            "L3": "我需要把小提琴拿到90米外的店换琴桥。午休去还是放学后去？"
+          },
+          "control": {
+            "question": "The music store is 90 meters from my school. Should I go during lunch or after school to buy sheet music?",
+            "question_zh": "琴行离我学校90米。我买乐谱，应该午休去还是放学后去？",
+            "correct_answer": "either",
+            "note": "Buying sheet music doesn't require an instrument"
+          }
+        },
+        {
+          "id": "music_08",
+          "type": "target",
+          "implicit_goal": "Harp is extremely large/heavy; mover or special transport needed",
+          "correct_answer": "arrange_transport",
+          "surface_distractor": "distance seems manageable",
+          "levels": {
+            "L0": "The concert hall is 400 meters from my home. How should I get there for tonight's performance?",
+            "L1": "I'm performing harp tonight, and the concert hall is 400 meters away. How should I get there?",
+            "L2": "I need to bring my concert harp to the hall 400 meters away. How should I transport it?",
+            "L3": "I need to transport my 40kg, 180cm concert harp to the hall 400 meters away. How should I get it there?"
+          },
+          "levels_zh": {
+            "L0": "音乐厅离我家400米。今晚演出我应该怎么去？",
+            "L1": "今晚我要演奏竖琴，音乐厅在400米外。我应该怎么去？",
+            "L2": "我需要带演奏竖琴去400米外的音乐厅。我应该怎么运？",
+            "L3": "我需要把40公斤、180厘米高的演奏竖琴运到400米外的音乐厅。怎么运？"
+          },
+          "control": {
+            "question": "The concert hall is 400 meters from my home. How should I get there to attend tonight's concert?",
+            "question_zh": "音乐厅离我家400米。今晚去听音乐会我应该怎么去？",
+            "correct_answer": "walk",
+            "note": "Attending as audience, no instrument"
+          }
+        },
+        {
+          "id": "music_09",
+          "type": "target",
+          "implicit_goal": "PA system (speakers, mixer, cables) must be transported to event",
+          "correct_answer": "drive",
+          "surface_distractor": "nearby community center",
+          "levels": {
+            "L0": "The community center is 200 meters away. Should I drive or walk to the event?",
+            "L1": "I'm DJing at the community center 200 meters away tonight. Should I drive or walk?",
+            "L2": "I need to bring my DJ equipment to the community center 200 meters away. Should I drive or walk?",
+            "L3": "I need to transport speakers, a mixer, and crates of records to the community center 200 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "社区中心在200米外。活动我应该开车去还是走路去？",
+            "L1": "今晚我在200米外的社区中心做DJ。我应该开车去还是走路去？",
+            "L2": "我需要带DJ设备去200米外的社区中心。我应该开车去还是走路？",
+            "L3": "我需要把音箱、调音台和唱片箱运到200米外的社区中心。开车还是走路？"
+          },
+          "control": {
+            "question": "The community center is 200 meters away. Should I drive or walk to attend the event?",
+            "question_zh": "社区中心在200米外。我去参加活动，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Attending as guest, no equipment"
+          }
+        },
+        {
+          "id": "music_10",
+          "type": "target",
+          "implicit_goal": "Saxophone needs professional repair; must bring it to technician",
+          "correct_answer": "bring_sax",
+          "surface_distractor": "question is about timing",
+          "levels": {
+            "L0": "The instrument repair technician is 300 meters from my office. Should I go during my break or after work?",
+            "L1": "My saxophone has a stuck key, and the repair tech is 300 meters away. Should I go during my break or after work?",
+            "L2": "I need to get my saxophone's stuck key fixed. The tech is 300 meters away. Should I bring it during break or after work?",
+            "L3": "I need to bring my saxophone to the repair tech 300 meters away to fix a stuck key. Break or after work?"
+          },
+          "levels_zh": {
+            "L0": "乐器维修师离我办公室300米。我应该午休去还是下班后去？",
+            "L1": "我的萨克斯有个键卡住了，维修师在300米外。午休去还是下班后去？",
+            "L2": "我需要修萨克斯的卡键。维修师在300米外。我应该午休带过去还是下班后？",
+            "L3": "我需要把萨克斯拿到300米外的维修师那里修卡键。午休去还是下班后去？"
+          },
+          "control": {
+            "question": "The music shop is 300 meters from my office. Should I go during break or after work to buy a metronome?",
+            "question_zh": "琴行离我办公室300米。我买节拍器，午休去还是下班后去？",
+            "correct_answer": "either",
+            "note": "Buying a metronome doesn't require bringing an instrument"
+          }
+        }
+      ]
+    },
+    {
+      "domain_id": "medical",
+      "domain_name": "Medical / Pharmacy",
+      "implicit_goal_structure": "Item size, weight, or quantity constrains transport mode",
+      "problems": [
+        {
+          "id": "med_01",
+          "type": "target",
+          "implicit_goal": "Wheelchair is large/heavy and cannot be carried while walking",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance favors walking",
+          "levels": {
+            "L0": "The medical supply store is 150 meters from my home. Should I drive or walk to pick up my order?",
+            "L1": "I ordered a wheelchair, and the medical supply store is 150 meters away. Should I drive or walk to pick it up?",
+            "L2": "I need to pick up a wheelchair from the store 150 meters away. Should I drive or walk?",
+            "L3": "I need to transport a folded wheelchair from the medical supply store 150 meters away to my home. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "医疗器械店离我家150米。我应该开车还是走路去取订单？",
+            "L1": "我订了一台轮椅，医疗器械店在150米外。我应该开车还是走路去取？",
+            "L2": "我需要从150米外的店取一台轮椅。我应该开车去还是走路去？",
+            "L3": "我需要从150米外的医疗器械店把折叠轮椅运回家。开车还是走路？"
+          },
+          "control": {
+            "question": "The pharmacy is 150 meters from my home. Should I drive or walk to pick up my prescription?",
+            "question_zh": "药店离我家150米。我去取处方药，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "A prescription is small and light"
+          }
+        },
+        {
+          "id": "med_02",
+          "type": "target",
+          "implicit_goal": "Oxygen concentrator is heavy medical equipment",
+          "correct_answer": "drive",
+          "surface_distractor": "nearby store",
+          "levels": {
+            "L0": "The home health equipment store is 100 meters away. Should I drive or walk to get my order?",
+            "L1": "My father needs an oxygen concentrator, and the health equipment store is 100 meters away. Should I drive or walk?",
+            "L2": "I need to pick up an oxygen concentrator from the store 100 meters away. Should I drive or walk?",
+            "L3": "I need to transport a 25kg oxygen concentrator from the store 100 meters away. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "家用医疗设备店在100米外。我应该开车还是走路去取货？",
+            "L1": "我爸需要一台制氧机，设备店在100米外。我应该开车还是走路去取？",
+            "L2": "我需要从100米外的店取一台制氧机。我应该开车去还是走路去？",
+            "L3": "我需要从100米外的店运回一台25公斤的制氧机。开车还是走路？"
+          },
+          "control": {
+            "question": "The health food store is 100 meters away. Should I drive or walk to buy vitamins?",
+            "question_zh": "保健品店在100米外。我去买维生素，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Vitamins are small and light"
+          }
+        },
+        {
+          "id": "med_03",
+          "type": "target",
+          "implicit_goal": "Hospital bed frame must be returned; too large to carry",
+          "correct_answer": "drive",
+          "surface_distractor": "medical center is close",
+          "levels": {
+            "L0": "The medical equipment rental center is 300 meters from my house. Should I drive or walk to return the equipment?",
+            "L1": "I need to return a rented hospital bed, and the rental center is 300 meters away. Should I drive or walk?",
+            "L2": "I need to return a hospital bed frame to the rental center 300 meters away. Should I drive or walk?",
+            "L3": "I need to transport a disassembled hospital bed frame to the rental center 300 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "医疗器械租赁中心离我家300米。我应该开车还是走路去还设备？",
+            "L1": "我需要归还租赁的医院床，租赁中心在300米外。我应该开车还是走路去还？",
+            "L2": "我需要把医院床架还到300米外的租赁中心。我应该开车去还是走路去？",
+            "L3": "我需要把拆卸好的医院床架运到300米外的租赁中心。开车还是走路？"
+          },
+          "control": {
+            "question": "The medical center is 300 meters from my house. Should I drive or walk to my check-up appointment?",
+            "question_zh": "医疗中心离我家300米。我去做体检，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Personal appointment, no cargo"
+          }
+        },
+        {
+          "id": "med_04",
+          "type": "target",
+          "implicit_goal": "Crutches/walker are awkward to carry in addition to walking",
+          "correct_answer": "drive",
+          "surface_distractor": "short distance",
+          "levels": {
+            "L0": "The orthopedic supply shop is 120 meters from my home. Should I drive or walk?",
+            "L1": "I broke my ankle and need crutches. The orthopedic shop is 120 meters away. Should I drive or walk?",
+            "L2": "I need to get fitted for crutches at the shop 120 meters away. With my broken ankle, should I drive or walk?",
+            "L3": "I have a broken ankle and need to get to the orthopedic shop 120 meters away for crutch fitting. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "骨科用品店离我家120米。我应该开车去还是走路去？",
+            "L1": "我脚踝骨折需要拐杖，骨科用品店在120米外。我应该开车去还是走路去？",
+            "L2": "我需要去120米外的骨科店配拐杖。脚踝骨折了，应该开车去还是走路去？",
+            "L3": "我脚踝骨折了，需要去120米外的骨科用品店配拐杖。开车去还是走路去？"
+          },
+          "control": {
+            "question": "The orthopedic clinic is 120 meters from my home. Should I drive or walk for my routine check-up?",
+            "question_zh": "骨科诊所离我家120米。我去做常规复查，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Routine check-up, person is not injured in the control"
+          }
+        },
+        {
+          "id": "med_05",
+          "type": "target",
+          "implicit_goal": "Large quantity of medical supplies (e.g., case of formula) is heavy",
+          "correct_answer": "drive",
+          "surface_distractor": "nearby pharmacy",
+          "levels": {
+            "L0": "The pharmacy is 80 meters away. Should I drive or walk to pick up my order?",
+            "L1": "I ordered 12 cases of infant formula from the pharmacy 80 meters away. Should I drive or walk?",
+            "L2": "I need to pick up 12 cases of infant formula from the pharmacy 80 meters away. Drive or walk?",
+            "L3": "I need to transport 12 heavy cases of infant formula from the pharmacy 80 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "药店在80米外。我应该开车还是走路去取货？",
+            "L1": "我在80米外的药店订了12箱婴儿奶粉。我应该开车还是走路去取？",
+            "L2": "我需要从80米外的药店取12箱婴儿奶粉。开车去还是走路去？",
+            "L3": "我需要把12箱沉重的婴儿奶粉从80米外的药店运回家。开车还是走路？"
+          },
+          "control": {
+            "question": "The pharmacy is 80 meters away. Should I drive or walk to pick up a bottle of eye drops?",
+            "question_zh": "药店在80米外。我去买一瓶眼药水，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Eye drops are tiny"
+          }
+        },
+        {
+          "id": "med_06",
+          "type": "target",
+          "implicit_goal": "Patient is mobility-impaired and needs vehicle transport",
+          "correct_answer": "drive",
+          "surface_distractor": "clinic is very close",
+          "levels": {
+            "L0": "The physical therapy clinic is 60 meters from my building. Should I drive or walk?",
+            "L1": "My elderly mother can barely walk, and the PT clinic is 60 meters away. Should I drive or walk her there?",
+            "L2": "I need to take my mobility-impaired mother to PT. The clinic is 60 meters away. Should I drive or walk?",
+            "L3": "My mother uses a wheelchair and needs to get to the PT clinic 60 meters away. Should I drive her or push the wheelchair?"
+          },
+          "levels_zh": {
+            "L0": "康复理疗诊所离我家楼60米。我应该开车去还是走路去？",
+            "L1": "我妈妈几乎走不动路，康复诊所在60米外。我应该开车送还是走路去？",
+            "L2": "我需要带行动不便的妈妈去康复理疗。诊所在60米外。开车还是走路？",
+            "L3": "我妈妈坐轮椅，需要去60米外的康复诊所。我应该开车送还是推轮椅过去？"
+          },
+          "control": {
+            "question": "The physical therapy clinic is 60 meters from my building. Should I drive or walk to my routine session?",
+            "question_zh": "康复理疗诊所离我家60米。我去做常规理疗，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Healthy person going to routine PT"
+          }
+        },
+        {
+          "id": "med_07",
+          "type": "target",
+          "implicit_goal": "CPAP machine and accessories are bulky to pick up",
+          "correct_answer": "drive",
+          "surface_distractor": "nearby store",
+          "levels": {
+            "L0": "The sleep clinic supply center is 200 meters away. Should I drive or walk to get my equipment?",
+            "L1": "I need to pick up my new CPAP machine with humidifier and mask kit. The supply center is 200 meters away. Drive or walk?",
+            "L2": "I need to pick up a CPAP machine, humidifier, and mask kit from the center 200 meters away. Drive or walk?",
+            "L3": "I need to carry a CPAP machine, humidifier, tubing, and mask fitting kit from the center 200 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "睡眠诊所设备中心在200米外。我应该开车还是走路去取设备？",
+            "L1": "我要取新的CPAP呼吸机和加湿器、面罩套件。设备中心在200米外。开车还是走路？",
+            "L2": "我需要从200米外的中心取CPAP呼吸机、加湿器和面罩套件。开车还是走路？",
+            "L3": "我需要从200米外运回CPAP呼吸机、加湿器、管路和面罩套件。开车还是走路？"
+          },
+          "control": {
+            "question": "The sleep clinic is 200 meters away. Should I drive or walk to my consultation appointment?",
+            "question_zh": "睡眠诊所在200米外。我去做咨询，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Just a consultation, no equipment to carry"
+          }
+        },
+        {
+          "id": "med_08",
+          "type": "target",
+          "implicit_goal": "X-ray films and large medical records must be transported",
+          "correct_answer": "drive",
+          "surface_distractor": "hospital is near",
+          "levels": {
+            "L0": "The specialist hospital is 250 meters from the community clinic. Should I drive or walk for the referral visit?",
+            "L1": "I need to bring all my X-rays and medical files for a second opinion. The specialist is 250 meters away. Drive or walk?",
+            "L2": "I need to bring a thick folder of X-ray films and records to the specialist 250 meters away. Drive or walk?",
+            "L3": "I need to transport a large envelope of X-ray films plus three binders of medical records to the hospital 250 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "专科医院离社区诊所250米。转诊我应该开车去还是走路去？",
+            "L1": "我需要带齐所有X光片和病历去看专科。医院在250米外。开车还是走路？",
+            "L2": "我需要带一大叠X光片和病历去250米外的专科医院。开车还是走路？",
+            "L3": "我需要把大信封的X光片和三个文件夹的病历运到250米外的医院。开车还是走路？"
+          },
+          "control": {
+            "question": "The specialist hospital is 250 meters away. Should I drive or walk for a follow-up consultation?",
+            "question_zh": "专科医院在250米外。我去做复查，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Simple follow-up, no bulk documents"
+          }
+        },
+        {
+          "id": "med_09",
+          "type": "target",
+          "implicit_goal": "Blood samples must be kept temperature-controlled during transport",
+          "correct_answer": "drive",
+          "surface_distractor": "lab is close",
+          "levels": {
+            "L0": "The diagnostic lab is 180 meters from the clinic. Should I drive or walk to deliver the samples?",
+            "L1": "I need to deliver temperature-sensitive blood samples to the lab 180 meters away. Should I drive or walk?",
+            "L2": "I need to transport blood samples in a cooler to the lab 180 meters away quickly. Drive or walk?",
+            "L3": "I need to rush temperature-sensitive blood samples in an insulated cooler to the lab 180 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "检验实验室离诊所180米。我应该开车还是走路去送样本？",
+            "L1": "我需要把对温度敏感的血样送到180米外的实验室。开车还是走路？",
+            "L2": "我需要用保温箱把血样快速送到180米外的实验室。开车还是走路？",
+            "L3": "我需要赶紧把保温箱里的温度敏感血样送到180米外的实验室。开车还是走路？"
+          },
+          "control": {
+            "question": "The diagnostic lab is 180 meters away. Should I drive or walk to get my test results?",
+            "question_zh": "检验实验室在180米外。我去取化验结果，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Picking up results, nothing to transport"
+          }
+        },
+        {
+          "id": "med_10",
+          "type": "target",
+          "implicit_goal": "Mobility scooter must be brought to the repair shop",
+          "correct_answer": "ride_scooter_or_drive",
+          "surface_distractor": "shop is nearby",
+          "levels": {
+            "L0": "The mobility equipment repair shop is 100 meters away. Should I drive or walk?",
+            "L1": "My mobility scooter's battery isn't holding charge, and the repair shop is 100 meters away. How should I get it there?",
+            "L2": "I need to get my mobility scooter repaired. The shop is 100 meters away. Should I ride it there or have it towed?",
+            "L3": "My mobility scooter needs battery repair. The shop is 100 meters away. Should I ride it there while it still has some charge, or arrange pickup?"
+          },
+          "levels_zh": {
+            "L0": "代步车维修店在100米外。我应该开车去还是走路去？",
+            "L1": "我的代步车电池不耐用了，维修店在100米外。我应该怎么把它弄过去？",
+            "L2": "我需要修代步车。维修店在100米外。我应该骑过去还是叫人拖？",
+            "L3": "我的代步车需要修电池。维修店在100米外。趁还有点电骑过去还是安排取车？"
+          },
+          "control": {
+            "question": "The mobility equipment shop is 100 meters away. Should I drive or walk to buy a seat cushion?",
+            "question_zh": "代步车用品店在100米外。我去买座垫，应该开车去还是走路去？",
+            "correct_answer": "walk",
+            "note": "Buying a cushion is lightweight"
+          }
+        }
+      ]
+    },
+    {
+      "domain_id": "home_appliance",
+      "domain_name": "Home Appliances",
+      "implicit_goal_structure": "Repair target is immovable/heavy; service may need to come to the home",
+      "problems": [
+        {
+          "id": "home_01",
+          "type": "target",
+          "implicit_goal": "Washing machine is too heavy to move; repairman should come to home",
+          "correct_answer": "have_repairman_come",
+          "surface_distractor": "question implies going to the repair shop",
+          "levels": {
+            "L0": "The appliance repair shop is 200 meters from my home. Should I go there or have them come to me?",
+            "L1": "My washing machine is broken, and the repair shop is 200 meters away. Should I go there or have them come?",
+            "L2": "I need my washing machine repaired. The shop is 200 meters away. Should I somehow bring it there or have them come?",
+            "L3": "My washing machine is broken and too heavy to move. The repair shop is 200 meters away. Go there or have them come?"
+          },
+          "levels_zh": {
+            "L0": "家电维修店离我家200米。我应该去那里还是让他们上门？",
+            "L1": "我的洗衣机坏了，维修店在200米外。我应该去那里还是让他们上门？",
+            "L2": "我需要修洗衣机。维修店在200米外。我应该想办法搬过去还是让他们上门？",
+            "L3": "我的洗衣机坏了，太重搬不动。维修店在200米外。去那里还是让他们来？"
+          },
+          "control": {
+            "question": "The electronics store is 200 meters away. Should I go there or order online for a new phone case?",
+            "question_zh": "电子产品店在200米外。买手机壳我应该去店里还是网购？",
+            "correct_answer": "either",
+            "note": "Phone case is portable, either works"
+          }
+        },
+        {
+          "id": "home_02",
+          "type": "target",
+          "implicit_goal": "Refrigerator is immovable; technician must come to the home",
+          "correct_answer": "have_technician_come",
+          "surface_distractor": "nearby service center",
+          "levels": {
+            "L0": "The appliance service center is just across the street. Should I go there or call them to come?",
+            "L1": "My fridge stopped cooling, and the service center is across the street. Should I go there or call them?",
+            "L2": "I need my refrigerator fixed. The service center is across the street. Should I bring it there or have them come?",
+            "L3": "My refrigerator broke down and weighs 80kg. The service center is across the street. Bring it there or have them come?"
+          },
+          "levels_zh": {
+            "L0": "家电服务中心就在对面。我应该过去还是叫他们上门？",
+            "L1": "我的冰箱不制冷了，服务中心就在对面。我应该过去还是叫他们来？",
+            "L2": "我需要修冰箱。服务中心就在对面。我应该搬过去还是让他们上门？",
+            "L3": "我的冰箱坏了，重80公斤。服务中心就在对面。搬过去还是让他们来？"
+          },
+          "control": {
+            "question": "The appliance store is just across the street. Should I go there or order online for a toaster?",
+            "question_zh": "家电店就在对面。买烤面包机我应该去店里还是网购？",
+            "correct_answer": "either",
+            "note": "Toaster is portable"
+          }
+        },
+        {
+          "id": "home_03",
+          "type": "target",
+          "implicit_goal": "AC unit is wall-mounted/heavy; requires on-site service",
+          "correct_answer": "have_technician_come",
+          "surface_distractor": "shop is close",
+          "levels": {
+            "L0": "The HVAC repair company is 150 meters away. Should I go there or have them come to my place?",
+            "L1": "My air conditioner is leaking, and the HVAC company is 150 meters away. Should I go or have them come?",
+            "L2": "I need my wall-mounted AC unit repaired. The company is 150 meters away. Go there or have them come?",
+            "L3": "My wall-mounted AC unit is leaking and can't be removed. The repair company is 150 meters away. Go or have them come?"
+          },
+          "levels_zh": {
+            "L0": "暖通维修公司离我150米。我应该去那里还是让他们上门？",
+            "L1": "我的空调漏水了，暖通公司在150米外。我应该过去还是让他们来？",
+            "L2": "我需要修壁挂式空调。暖通公司在150米外。去那里还是让他们上门？",
+            "L3": "我的壁挂空调漏水且不能拆下。暖通公司在150米外。去还是让他们来？"
+          },
+          "control": {
+            "question": "The HVAC company is 150 meters away. Should I go there or call to ask about pricing?",
+            "question_zh": "暖通公司在150米外。我去问价格应该去那里还是打电话？",
+            "correct_answer": "either",
+            "note": "Just asking about pricing, either works"
+          }
+        },
+        {
+          "id": "home_04",
+          "type": "target",
+          "implicit_goal": "Plumbing issue is location-bound; plumber must come to the house",
+          "correct_answer": "have_plumber_come",
+          "surface_distractor": "plumber is nearby",
+          "levels": {
+            "L0": "The plumber's office is 100 meters from my house. Should I go there or have them come?",
+            "L1": "My kitchen pipe is leaking, and the plumber is 100 meters away. Should I go there or have them come?",
+            "L2": "I need my kitchen pipe fixed. The plumber is 100 meters away. Should I go to their office or have them come?",
+            "L3": "My kitchen pipe is actively leaking. The plumber is 100 meters away. Should I go to the office or have them come to fix the pipe in my kitchen?"
+          },
+          "levels_zh": {
+            "L0": "水管工的店在100米外。我应该去那里还是让他上门？",
+            "L1": "我厨房水管漏水了，水管工的店在100米外。我应该去还是让他来？",
+            "L2": "我需要修厨房水管。水管工在100米外。去他店里还是让他上门？",
+            "L3": "我厨房水管正在漏水。水管工在100米外。去他店里还是让他来我家修？"
+          },
+          "control": {
+            "question": "The hardware store is 100 meters away. Should I go there or order online for some screws?",
+            "question_zh": "五金店在100米外。买螺丝我应该去店里还是网购？",
+            "correct_answer": "either",
+            "note": "Buying screws, either works"
+          }
+        },
+        {
+          "id": "home_05",
+          "type": "target",
+          "implicit_goal": "Water heater is wall-mounted/heavy; on-site repair needed",
+          "correct_answer": "have_technician_come",
+          "surface_distractor": "service center is close",
+          "levels": {
+            "L0": "The water heater service center is 180 meters away. Should I go there or have them come?",
+            "L1": "My water heater isn't producing hot water, and the service center is 180 meters away. Go there or have them come?",
+            "L2": "I need my water heater fixed. The service center is 180 meters away. Should I bring it or have them come?",
+            "L3": "My wall-mounted water heater is broken and can't be detached. The service center is 180 meters away. Go or have them come?"
+          },
+          "levels_zh": {
+            "L0": "热水器服务中心在180米外。我应该去那里还是让他们上门？",
+            "L1": "我的热水器不出热水了，服务中心在180米外。去还是让他们来？",
+            "L2": "我需要修热水器。服务中心在180米外。搬过去还是让他们上门？",
+            "L3": "我的壁挂热水器坏了且无法拆卸。服务中心在180米外。去还是让他们来？"
+          },
+          "control": {
+            "question": "The home goods store is 180 meters away. Should I go there or order online for a shower curtain?",
+            "question_zh": "家居用品店在180米外。买浴帘我应该去店里还是网购？",
+            "correct_answer": "either",
+            "note": "Shower curtain is light and portable"
+          }
+        },
+        {
+          "id": "home_06",
+          "type": "target",
+          "implicit_goal": "Oven is built-in; repair must happen at home",
+          "correct_answer": "have_technician_come",
+          "surface_distractor": "repair shop is nearby",
+          "levels": {
+            "L0": "The kitchen appliance repair shop is 120 meters away. Should I go there or have them come?",
+            "L1": "My built-in oven won't heat up, and the repair shop is 120 meters away. Go there or have them come?",
+            "L2": "I need my built-in oven repaired. The shop is 120 meters away. Should I try to bring it or have them come?",
+            "L3": "My built-in oven is broken and permanently installed in the kitchen wall. The shop is 120 meters away. Go or have them come?"
+          },
+          "levels_zh": {
+            "L0": "厨房电器维修店在120米外。我应该去还是让他们来？",
+            "L1": "我的嵌入式烤箱不加热了，维修店在120米外。去还是让他们来？",
+            "L2": "我需要修嵌入式烤箱。维修店在120米外。搬过去还是让他们上门？",
+            "L3": "我的嵌入式烤箱坏了，永久安装在厨房墙里。维修店在120米外。去还是让他们来？"
+          },
+          "control": {
+            "question": "The kitchen supply store is 120 meters away. Should I go there or order online for a baking pan?",
+            "question_zh": "厨具店在120米外。买烤盘我应该去店里还是网购？",
+            "correct_answer": "either",
+            "note": "A baking pan is small and portable"
+          }
+        },
+        {
+          "id": "home_07",
+          "type": "target",
+          "implicit_goal": "Large TV is fragile and heavy; needs careful transport",
+          "correct_answer": "drive",
+          "surface_distractor": "store is close",
+          "levels": {
+            "L0": "The electronics repair shop is 100 meters away. Should I drive or walk to bring in my device?",
+            "L1": "My 65-inch TV screen is flickering, and the repair shop is 100 meters away. Should I drive or walk?",
+            "L2": "I need to bring my 65-inch TV for repair. The shop is 100 meters away. Should I drive or walk?",
+            "L3": "I need to carefully transport my fragile 65-inch TV to the repair shop 100 meters away. Drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "电器维修店在100米外。我应该开车还是走路把设备送过去？",
+            "L1": "我的65寸电视屏幕闪烁，维修店在100米外。我应该开车还是走路？",
+            "L2": "我需要把65寸电视拿去修。维修店在100米外。开车还是走路？",
+            "L3": "我需要小心地把易碎的65寸电视运到100米外的维修店。开车还是走路？"
+          },
+          "control": {
+            "question": "The electronics shop is 100 meters away. Should I drive or walk to buy a USB cable?",
+            "question_zh": "电子产品店在100米外。我去买USB线，应该开车还是走路？",
+            "correct_answer": "walk",
+            "note": "A USB cable is tiny"
+          }
+        },
+        {
+          "id": "home_08",
+          "type": "target",
+          "implicit_goal": "Dishwasher is heavy and plumbed in; on-site repair needed",
+          "correct_answer": "have_technician_come",
+          "surface_distractor": "service center is close",
+          "levels": {
+            "L0": "The dishwasher service center is 250 meters from my house. Should I go or have them come?",
+            "L1": "My dishwasher is leaving dishes dirty, and the service center is 250 meters away. Go there or have them come?",
+            "L2": "I need my built-in dishwasher serviced. The center is 250 meters away. Bring it or have them come?",
+            "L3": "My plumbed-in dishwasher needs repair and can't be disconnected easily. The center is 250 meters away. Go or have them come?"
+          },
+          "levels_zh": {
+            "L0": "洗碗机服务中心离我家250米。我应该去还是让他们来？",
+            "L1": "我的洗碗机洗不干净了，服务中心在250米外。去还是让他们来？",
+            "L2": "我需要维修嵌入式洗碗机。中心在250米外。搬过去还是让他们上门？",
+            "L3": "我的嵌入式洗碗机需要修理且不便拆卸。中心在250米外。去还是让他们来？"
+          },
+          "control": {
+            "question": "The kitchenware store is 250 meters away. Should I go or order online for dish soap?",
+            "question_zh": "厨房用品店在250米外。买洗洁精我应该去店里还是网购？",
+            "correct_answer": "either",
+            "note": "Dish soap is light"
+          }
+        },
+        {
+          "id": "home_09",
+          "type": "target",
+          "implicit_goal": "Microwave is moderately heavy and awkward to carry",
+          "correct_answer": "drive",
+          "surface_distractor": "nearby shop",
+          "levels": {
+            "L0": "The small appliance repair shop is 150 meters away. Should I drive or walk?",
+            "L1": "My microwave stopped working, and the repair shop is 150 meters away. Should I drive or walk?",
+            "L2": "I need to bring my microwave for repair. The shop is 150 meters away. Should I drive or walk?",
+            "L3": "I need to carry my 15kg microwave to the repair shop 150 meters away. Should I drive or walk?"
+          },
+          "levels_zh": {
+            "L0": "小家电维修店在150米外。我应该开车去还是走路去？",
+            "L1": "我的微波炉坏了，维修店在150米外。我应该开车去还是走路去？",
+            "L2": "我需要把微波炉拿去修。维修店在150米外。开车去还是走路去？",
+            "L3": "我需要把15公斤的微波炉搬到150米外的维修店。开车还是走路？"
+          },
+          "control": {
+            "question": "The kitchen shop is 150 meters away. Should I drive or walk to buy a spatula?",
+            "question_zh": "厨具店在150米外。买铲子应该开车还是走路？",
+            "correct_answer": "walk",
+            "note": "A spatula is tiny"
+          }
+        },
+        {
+          "id": "home_10",
+          "type": "target",
+          "implicit_goal": "Garage door is part of the building; repair must be on-site",
+          "correct_answer": "have_technician_come",
+          "surface_distractor": "repair service is nearby",
+          "levels": {
+            "L0": "The garage door repair service is 300 meters away. Should I go there or have them come?",
+            "L1": "My garage door is stuck halfway open, and the repair service is 300 meters away. Go or have them come?",
+            "L2": "I need my garage door repaired. The service is 300 meters away. Should I go to their shop or have them come?",
+            "L3": "My garage door is stuck and it's a permanent structure. The repair service is 300 meters away. Go or have them come?"
+          },
+          "levels_zh": {
+            "L0": "车库门维修服务在300米外。我应该去还是让他们来？",
+            "L1": "我的车库门卡在半开位置，维修服务在300米外。去还是让他们来？",
+            "L2": "我需要修车库门。维修服务在300米外。去他们店里还是让他们上门？",
+            "L3": "我的车库门卡住了，是建筑固定结构。维修服务在300米外。去还是让他们来？"
+          },
+          "control": {
+            "question": "The hardware store is 300 meters away. Should I go or order online for some light bulbs?",
+            "question_zh": "五金店在300米外。买灯泡我应该去店里还是网购？",
+            "correct_answer": "either",
+            "note": "Light bulbs are small and portable"
+          }
+        }
+      ]
+    }
+  ]
+}

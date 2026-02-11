@@ -1,0 +1,9 @@
+Model,Type,Strategy,Target Acc,Target Correct/Total,Control Acc,Goal Recognition
+Claude Sonnet 4.5,balanced,direct,24.2%,8/33,50.0%,36.4%
+Claude Sonnet 4.5,balanced,cot,46.9%,15/32,100.0%,68.8%
+DeepSeek-V3.2 Chat,chat,direct,54.2%,13/24,60.0%,91.7%
+DeepSeek-V3.2 Chat,chat,cot,75.0%,18/24,80.0%,87.5%
+Gemini 2.5 Flash,efficient,direct,57.7%,15/26,83.3%,80.8%
+Gemini 2.5 Flash,efficient,cot,76.9%,20/26,83.3%,88.5%
+GPT-5,flagship,direct,25.0%,1/4,0.0%,100.0%
+GPT-5,flagship,cot,25.0%,1/4,0.0%,50.0%

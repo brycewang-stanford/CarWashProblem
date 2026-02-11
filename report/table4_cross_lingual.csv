@@ -1,0 +1,9 @@
+Model,Language,Accuracy,N
+Claude Sonnet 4.5,EN,22.2%,9
+Claude Sonnet 4.5,ZH,25.0%,8
+DeepSeek-V3.2 Chat,EN,16.7%,6
+DeepSeek-V3.2 Chat,ZH,83.3%,6
+Gemini 2.5 Flash,EN,62.5%,8
+Gemini 2.5 Flash,ZH,62.5%,8
+GPT-5,EN,0.0%,2
+GPT-5,ZH,50.0%,2

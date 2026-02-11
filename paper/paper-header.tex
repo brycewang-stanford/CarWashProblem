@@ -1,0 +1,46 @@
+% Academic paper styling
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xeCJK}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{abstract}
+
+% Remove paragraph indent, add spacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% Style the abstract
+\renewcommand{\abstractnamefont}{\normalfont\bfseries\large}
+\renewcommand{\abstracttextfont}{\normalfont\small}
+\setlength{\absleftindent}{0.5in}
+\setlength{\absrightindent}{0.5in}
+
+% Better section formatting
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0em}{}
+\titlespacing*{\section}{0pt}{18pt}{6pt}
+\titlespacing*{\subsection}{0pt}{12pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
+
+% Page headers
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\small The Car Wash Problem: Benchmarking Implicit Goal Reasoning in LLMs and VLMs}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Title styling
+\pretitle{\begin{center}\LARGE\bfseries}
+\posttitle{\end{center}\vspace{-0.5em}}
+\preauthor{\begin{center}\large}
+\postauthor{\end{center}}
+\predate{\begin{center}\normalsize}
+\postdate{\end{center}}
+
+% Reduce margins for tables
+\usepackage{adjustbox}
