@@ -17,7 +17,7 @@ Consider the following question:
 
 > *"The car wash is 50 meters from my home. Should I drive or walk there?"*
 
-For any human, the answer is immediate and obvious: you should **drive**, because the purpose of visiting a car wash is to have your *car* washed—and the car cannot walk itself there. Yet in February 2026, when this question was posed to virtually every major AI system—including ChatGPT, Claude, DeepSeek, Qwen, Kimi, and Doubao—the overwhelming recommendation was to **walk** [1, 2]. The models reasoned that 50 meters is a short distance, walking is healthier, more environmentally friendly, and avoids the hassle of parking. Only Google's Gemini and xAI's Grok consistently recognized that the car itself needs to be at the car wash [3].
+For any human, the answer is immediate and obvious: you should **drive**, because the purpose of visiting a car wash is to have your *car* washed—and the car cannot walk itself there. Yet in February 2026, when this question was posed to virtually every major AI system—including ChatGPT, Claude, DeepSeek, Qwen, Kimi, and Doubao—the overwhelming recommendation was to **walk**. The models reasoned that 50 meters is a short distance, walking is healthier, more environmentally friendly, and avoids the hassle of parking. The incident quickly gained widespread attention on Chinese social media, with independent testing confirming that only Google's Gemini and xAI's Grok consistently recognized that the car itself needs to be at the car wash.
 
 This incident, which quickly went viral on Chinese social media under the moniker *"The Car Wash Problem"* (洗车难题), is far more than an amusing anecdote. It exposes a systematic failure in how current large language models (LLMs) and vision-language models (VLMs) process seemingly simple questions. The models are not lacking in knowledge—they all "know" that car washes wash cars. Rather, they fail to *activate* the relevant commonsense knowledge when the question's framing triggers a different reasoning template. Specifically, the mention of "50 meters" activates a "transportation mode selection" schema (short distance → walk), which overrides the pragmatically critical inference that the *object of service* must be physically present at the service location.
 
@@ -27,19 +27,19 @@ We argue that this failure reflects a broader deficiency we term **implicit goal
 2. Recognize which **entities** are relevant to that goal (the car, not just the person);
 3. Derive **constraints** that the goal imposes on the answer (the car must be at the car wash, therefore it must be driven).
 
-Implicit goal reasoning is effortless for humans because we naturally understand the *purpose* behind questions. When someone asks about going to a car wash, we instantly infer they want their car cleaned. When someone asks about visiting a veterinarian, we infer they have a sick pet. These inferences are so automatic that they are rarely stated explicitly—creating a *reporting bias* [4] in text corpora that leaves LLMs without sufficient training signal for these trivially obvious facts.
+Implicit goal reasoning is effortless for humans because we naturally understand the *purpose* behind questions. When someone asks about going to a car wash, we instantly infer they want their car cleaned. When someone asks about visiting a veterinarian, we infer they have a sick pet. These inferences are so automatic that they are rarely stated explicitly—creating a *reporting bias* [1] in text corpora that leaves LLMs without sufficient training signal for these trivially obvious facts.
 
 ![Figure 1: The Car Wash Problem — Humans infer the implicit goal (wash the car) and drive, while AI models fixate on the explicit distance and recommend walking. IGR-Bench systematically evaluates this gap across domains and explicitness levels.](../figures/fig1_carwash_overview.png)
 
 This paper makes the following contributions:
 
-- **We formalize the implicit goal reasoning problem** as a distinct challenge for AI systems, connecting it to established theories of pragmatic inference [5], commonsense reasoning [6], and theory of mind [7].
+- **We formalize the implicit goal reasoning problem** as a distinct challenge for AI systems, connecting it to established theories of pragmatic inference [2], commonsense reasoning [3], and theory of mind [4].
 
 - **We introduce IGR-Bench**, a carefully designed benchmark of 1,200 problems across 12 everyday domains (automotive services, pet care, medical visits, home repair, etc.), each requiring the model to infer an unstated goal to answer correctly. IGR-Bench includes both text-only and multimodal (image + text) versions, enabling evaluation of LLMs and VLMs under a unified framework.
 
 - **We evaluate 10 state-of-the-art models** spanning five major providers (OpenAI, Anthropic, Google, DeepSeek, Moonshot), including both flagship and reasoning-optimized variants, providing the first systematic assessment of implicit goal reasoning capabilities. Our pilot study reveals that even the best model (Gemini 2.5 Flash with CoT) achieves only 76.9% accuracy, and uncovers a striking cross-lingual gap in DeepSeek suggestive of data contamination from the viral Chinese discussion.
 
-- **We propose a taxonomy of six failure modes** that explains *why* models fail at implicit goal reasoning, grounded in evidence from our benchmark evaluations and connected to the broader literature on commonsense reasoning failures [8, 9, 10].
+- **We propose a taxonomy of six failure modes** that explains *why* models fail at implicit goal reasoning, grounded in evidence from our benchmark evaluations and connected to the broader literature on commonsense reasoning failures [5, 6, 7].
 
 The remainder of this paper is organized as follows. Section 2 reviews related work spanning commonsense reasoning, pragmatic inference, and multimodal understanding. Section 3 formalizes the implicit goal reasoning problem. Section 4 describes the construction of IGR-Bench. Section 5 details our experimental design. Section 6 presents preliminary pilot results from four models on the automotive domain. Section 7 discusses implications and limitations, and Section 8 concludes.
 
@@ -51,39 +51,39 @@ We organize related work into six areas that collectively frame the implicit goa
 
 ### 2.1 Commonsense Reasoning Failures in LLMs
 
-The observation that LLMs fail at "easy" problems is not new, but its systematic study has accelerated in recent years. Williams and Huckle [8] designed a Linguistic Benchmark of 30 straightforward questions spanning logic, spatial reasoning, and commonsense, finding that even top-tier models from OpenAI, Google, and Anthropic frequently fail. They attribute these failures to the "absence of embodied experience"—LLMs lack the sensory perception needed for grounded commonsense reasoning. Song et al. [9] provide the first comprehensive taxonomy of LLM reasoning failures, distinguishing embodied from non-embodied reasoning and categorizing failures into fundamental architectural issues, domain-specific limitations, and robustness problems. Their framework identifies that even seemingly simple scenarios trigger persistent reasoning failures.
+The observation that LLMs fail at "easy" problems is not new, but its systematic study has accelerated in recent years. Williams and Huckle [5] designed a Linguistic Benchmark of 30 straightforward questions spanning logic, spatial reasoning, and commonsense, finding that even top-tier models from OpenAI, Google, and Anthropic frequently fail. They attribute these failures to the "absence of embodied experience"—LLMs lack the sensory perception needed for grounded commonsense reasoning. Song et al. [6] provide the first comprehensive taxonomy of LLM reasoning failures, distinguishing embodied from non-embodied reasoning and categorizing failures into fundamental architectural issues, domain-specific limitations, and robustness problems. Their framework identifies that even seemingly simple scenarios trigger persistent reasoning failures.
 
-Bian et al. [11] offer a particularly relevant finding: ChatGPT is a "knowledgeable but inexperienced solver" that can accurately *generate* commonsense knowledge but cannot precisely *identify which commonsense is needed* for a specific question. This diagnosis directly predicts the Car Wash Problem—the model possesses the knowledge that car washes service cars, but fails to activate it when the question's surface structure triggers a distance-based reasoning template. Yamin et al. [12] further identify *parametric knowledge bias* as a key failure mode: LLMs default to memorized associations (e.g., "short distance → walk") rather than reasoning from the specific context provided. Do et al. [13] reveal that a large portion of instances in popular commonsense benchmarks (CommonsenseQA, CommonsenseQA 2.0) do not actually concern genuine commonsense knowledge, and models perform *worse* on instances that do—suggesting that benchmarks systematically undertest the type of reasoning the Car Wash Problem requires.
+Bian et al. [8] offer a particularly relevant finding: ChatGPT is a "knowledgeable but inexperienced solver" that can accurately *generate* commonsense knowledge but cannot precisely *identify which commonsense is needed* for a specific question. This diagnosis directly predicts the Car Wash Problem—the model possesses the knowledge that car washes service cars, but fails to activate it when the question's surface structure triggers a distance-based reasoning template. Yamin et al. [9] further identify *parametric knowledge bias* as a key failure mode: LLMs default to memorized associations (e.g., "short distance → walk") rather than reasoning from the specific context provided. Do et al. [10] reveal that a large portion of instances in popular commonsense benchmarks (CommonsenseQA, CommonsenseQA 2.0) do not actually concern genuine commonsense knowledge, and models perform *worse* on instances that do—suggesting that benchmarks systematically undertest the type of reasoning the Car Wash Problem requires.
 
 ### 2.2 Commonsense Reasoning Benchmarks
 
-The AI community has developed numerous benchmarks targeting different facets of commonsense reasoning. CommonsenseQA [14] tests conceptual differentiation using 12,247 multiple-choice questions derived from ConceptNet, where BERT-large achieved only 56% accuracy versus 89% human accuracy. HellaSwag [15] evaluates commonsense natural language inference about physical situations, using adversarial filtering to create questions that are trivial for humans (>95%) but challenging for machines (<48% at the time of introduction). PIQA [4] specifically targets physical commonsense in a "Goal → Solution" format, highlighting the crucial role of *reporting bias*: physical knowledge is underrepresented in text because people rarely state the obvious. This observation is central to our work—nobody writes "I drove my car to the car wash because the car needs washing" precisely because it is too obvious.
+The AI community has developed numerous benchmarks targeting different facets of commonsense reasoning. CommonsenseQA [11] tests conceptual differentiation using 12,247 multiple-choice questions derived from ConceptNet, where BERT-large achieved only 56% accuracy versus 89% human accuracy. HellaSwag [12] evaluates commonsense natural language inference about physical situations, using adversarial filtering to create questions that are trivial for humans (>95%) but challenging for machines (<48% at the time of introduction). PIQA [1] specifically targets physical commonsense in a "Goal → Solution" format, highlighting the crucial role of *reporting bias*: physical knowledge is underrepresented in text because people rarely state the obvious. This observation is central to our work—nobody writes "I drove my car to the car wash because the car needs washing" precisely because it is too obvious.
 
-WinoGrande [16] scales up pronoun resolution problems but reveals that high performance may reflect statistical shortcuts rather than genuine understanding. Davis [17] surveys 139 commonsense benchmarks (102 text-based, 18 image-based, 12 video-based, 7 simulated) and identifies significant gaps, noting that none specifically test whether models can infer the *unstated purpose* behind a question about a service location—precisely the gap IGR-Bench addresses. More recent evaluations confirm the persistence of these gaps: Nguyen et al. [18] show that when treated as independent survey respondents, most LLMs remain below the human median in commonsense competence, and Li et al. [19] demonstrate that scaling alone is insufficient for human-level commonsense even in zero-shot and few-shot settings.
+WinoGrande [13] scales up pronoun resolution problems but reveals that high performance may reflect statistical shortcuts rather than genuine understanding. Davis [14] surveys 139 commonsense benchmarks (102 text-based, 18 image-based, 12 video-based, 7 simulated) and identifies significant gaps, noting that none specifically test whether models can infer the *unstated purpose* behind a question about a service location—precisely the gap IGR-Bench addresses. More recent evaluations confirm the persistence of these gaps: Nguyen et al. [15] show that when treated as independent survey respondents, most LLMs remain below the human median in commonsense competence, and Li et al. [16] demonstrate that scaling alone is insufficient for human-level commonsense even in zero-shot and few-shot settings.
 
 ### 2.3 Pragmatic and Implicit Reasoning
 
-The Car Wash Problem is fundamentally a failure of *pragmatic inference*—understanding meaning beyond the literal content of language. Ma et al. [20] provide a comprehensive survey of pragmatic evaluation resources for LLMs, identifying that models fail at tasks requiring understanding beyond literal meaning and highlighting gaps in benchmarks testing situated, context-dependent pragmatic reasoning. Cong [21] investigates manner implicatures (Grice's maxim of manner) in LLMs, finding that most models perform at or below chance—showing "no striking evidence that LLMs have explainable representations of meaning." The Car Wash Problem can be analyzed as a relevance implicature: the mention of "car wash" is only pragmatically relevant if the car itself is involved, an inference LLMs fail to make.
+The Car Wash Problem is fundamentally a failure of *pragmatic inference*—understanding meaning beyond the literal content of language. Ma et al. [17] provide a comprehensive survey of pragmatic evaluation resources for LLMs, identifying that models fail at tasks requiring understanding beyond literal meaning and highlighting gaps in benchmarks testing situated, context-dependent pragmatic reasoning. Cong [18] investigates manner implicatures (Grice's maxim of manner) in LLMs, finding that most models perform at or below chance—showing "no striking evidence that LLMs have explainable representations of meaning." The Car Wash Problem can be analyzed as a relevance implicature: the mention of "car wash" is only pragmatically relevant if the car itself is involved, an inference LLMs fail to make.
 
-Li et al. [22] introduce DiPlomat, a benchmark for pragmatic reasoning in situated contexts at NeurIPS 2023, including tasks for open-world knowledge acquisition and figurative language understanding. Zheng et al. [23] present the GRICE dataset for recovering implicatures and conversational reasoning. Li et al. [24] survey implicit reasoning in LLMs, examining how reasoning can occur via latent structures without explicit intermediate steps—the kind of reasoning needed to bridge from "car wash" to "must drive the car there" without stating each logical step. Collectively, these works demonstrate that pragmatic and implicit reasoning remains a frontier challenge even for the most capable models.
+Li et al. [19] introduce DiPlomat, a benchmark for pragmatic reasoning in situated contexts at NeurIPS 2023, including tasks for open-world knowledge acquisition and figurative language understanding. Zheng et al. [20] present the GRICE dataset for recovering implicatures and conversational reasoning. Li et al. [21] survey implicit reasoning in LLMs, examining how reasoning can occur via latent structures without explicit intermediate steps—the kind of reasoning needed to bridge from "car wash" to "must drive the car there" without stating each logical step. Collectively, these works demonstrate that pragmatic and implicit reasoning remains a frontier challenge even for the most capable models.
 
 ### 2.4 Physical and Embodied Commonsense
 
-A key explanation for the Car Wash Problem is the lack of *embodied grounding* in language models. Kwon et al. [25] demonstrate that LLMs alone cannot perform grounded commonsense reasoning; in robotics applications, agents must actively gather environmental information rather than relying solely on language priors. Xu et al. [26], publishing in *Nature Human Behaviour*, compare 4,442 lexical concepts between humans and LLMs, finding that LLMs recover abstract/non-sensorimotor features but fail at motor and sensorimotor features. Motor representations rely on embodied experience that text-only models cannot learn—explaining why the physical act of "driving a car to a location" is poorly modeled.
+A key explanation for the Car Wash Problem is the lack of *embodied grounding* in language models. Kwon et al. [22] demonstrate that LLMs alone cannot perform grounded commonsense reasoning; in robotics applications, agents must actively gather environmental information rather than relying solely on language priors. Xu et al. [23], publishing in *Nature Human Behaviour*, compare 4,442 lexical concepts between humans and LLMs, finding that LLMs recover abstract/non-sensorimotor features but fail at motor and sensorimotor features. Motor representations rely on embodied experience that text-only models cannot learn—explaining why the physical act of "driving a car to a location" is poorly modeled.
 
-PhyBench [27] evaluates physical commonsense in text-to-image models across mechanics, optics, thermodynamics, and material properties, demonstrating that physical commonsense gaps extend beyond language to generative systems. The Commonsense-T2I Challenge [28] further shows that even DALL-E 3 achieves only 48.92% accuracy on adversarial commonsense prompts, and GPT-enriched prompts cannot fully address the gap. These findings suggest that the deficit is not modality-specific but reflects a deeper failure to represent physical-world constraints.
+PhyBench [24] evaluates physical commonsense in text-to-image models across mechanics, optics, thermodynamics, and material properties, demonstrating that physical commonsense gaps extend beyond language to generative systems. The Commonsense-T2I Challenge [25] further shows that even DALL-E 3 achieves only 48.92% accuracy on adversarial commonsense prompts, and GPT-enriched prompts cannot fully address the gap. These findings suggest that the deficit is not modality-specific but reflects a deeper failure to represent physical-world constraints.
 
 ### 2.5 Goal-Oriented Reasoning and Theory of Mind
 
-The Car Wash Problem requires understanding the *goal* behind a question—a capability closely related to theory of mind (ToM) and goal inference. Everitt et al. [29] define and evaluate goal-directedness in LLM agents, finding that most models are not fully goal-directed; goal-directedness is distinct from task performance. Zhi-Xuan et al. [30] introduce CLIPS, a Bayesian agent for pragmatic instruction following that performs multimodal inference over human goals from actions and language, significantly outperforming GPT-4V at goal inference tasks. The Car Wash Problem requires exactly this kind of cooperative goal inference: understanding that the human's goal is to wash the car, not merely to travel 50 meters.
+The Car Wash Problem requires understanding the *goal* behind a question—a capability closely related to theory of mind (ToM) and goal inference. Everitt et al. [26] define and evaluate goal-directedness in LLM agents, finding that most models are not fully goal-directed; goal-directedness is distinct from task performance. Zhi-Xuan et al. [27] introduce CLIPS, a Bayesian agent for pragmatic instruction following that performs multimodal inference over human goals from actions and language, significantly outperforming GPT-4V at goal inference tasks. The Car Wash Problem requires exactly this kind of cooperative goal inference: understanding that the human's goal is to wash the car, not merely to travel 50 meters.
 
-Kosinski [31] evaluates LLMs on false-belief tasks (a classic ToM measure), finding GPT-4 matches 6-year-old children but performance is brittle under perturbation. Riemer et al. [32], at ICML 2025, distinguish "literal ToM" (predicting behavior) from "functional ToM" (adapting to agents in context), noting that LLMs excel at the former but struggle with the latter. The Car Wash Problem requires functional understanding of the question-asker's situation. PARADISE [33] tests implicit planning skills through abductive reasoning about goals, requiring models to infer plans from given goals—a closely related capability to inferring "drive the car" from the goal "go to car wash."
+Kosinski [28] evaluates LLMs on false-belief tasks (a classic ToM measure), finding GPT-4 matches 6-year-old children but performance is brittle under perturbation. Riemer et al. [29], at ICML 2025, distinguish "literal ToM" (predicting behavior) from "functional ToM" (adapting to agents in context), noting that LLMs excel at the former but struggle with the latter. The Car Wash Problem requires functional understanding of the question-asker's situation. PARADISE [30] tests implicit planning skills through abductive reasoning about goals, requiring models to infer plans from given goals—a closely related capability to inferring "drive the car" from the goal "go to car wash."
 
 ### 2.6 Multimodal Commonsense Reasoning
 
-As VLMs become increasingly capable, understanding their commonsense limitations is critical. Zellers et al. [34] introduce Visual Commonsense Reasoning (VCR) at CVPR 2019, requiring both correct answers and rationales for movie scene understanding. The answer-plus-rationale format is relevant because correct Car Wash Problem resolution requires a correct rationale ("the car needs to be there"). Zhou et al. [35] propose ViCor, demonstrating that VLMs' passive perception misses crucial contextual information—the same passive processing that causes LLMs to process "50 meters" without actively reasoning about the car wash context.
+As VLMs become increasingly capable, understanding their commonsense limitations is critical. Zellers et al. [31] introduce Visual Commonsense Reasoning (VCR) at CVPR 2019, requiring both correct answers and rationales for movie scene understanding. The answer-plus-rationale format is relevant because correct Car Wash Problem resolution requires a correct rationale ("the car needs to be there"). Zhou et al. [32] propose ViCor, demonstrating that VLMs' passive perception misses crucial contextual information—the same passive processing that causes LLMs to process "50 meters" without actively reasoning about the car wash context.
 
-Yariv et al. [36] show that generating multiple images from text and mixing prediction probabilities can improve visual commonsense in LLMs, suggesting that visual grounding may help with problems like the Car Wash scenario. Kil et al. [37] introduce MLLM-CompBench at NeurIPS 2024, testing comparative reasoning across 40K image pairs and revealing that even GPT-4V struggles with reasoning about object states and functional relationships—precisely the reasoning needed to understand that a car's state (dirty) determines the transportation mode.
+Yariv et al. [33] show that generating multiple images from text and mixing prediction probabilities can improve visual commonsense in LLMs, suggesting that visual grounding may help with problems like the Car Wash scenario. Kil et al. [34] introduce MLLM-CompBench at NeurIPS 2024, testing comparative reasoning across 40K image pairs and revealing that even GPT-4V struggles with reasoning about object states and functional relationships—precisely the reasoning needed to understand that a car's state (dirty) determines the transportation mode.
 
 ### 2.7 Summary
 
@@ -111,29 +111,29 @@ The key challenge is that models must first *infer* $g$ from $c$, then reason ab
 
 Drawing on the literature reviewed in Section 2 and our preliminary analysis, we identify six failure modes that explain why models struggle with implicit goal reasoning:
 
-**FM1: Reporting Bias.** Training corpora underrepresent obvious facts [4]. People rarely write "I drove to the car wash because my car needs washing" because it is self-evident to humans. This creates a distributional gap: models learn correlations between "short distance" and "walking" far more often than the implicit constraint that service objects must be physically present.
+**FM1: Reporting Bias.** Training corpora underrepresent obvious facts [1]. People rarely write "I drove to the car wash because my car needs washing" because it is self-evident to humans. This creates a distributional gap: models learn correlations between "short distance" and "walking" far more often than the implicit constraint that service objects must be physically present.
 
-**FM2: Pragmatic Inference Failure.** Models process questions literally rather than pragmatically [20, 21]. The question "Should I drive or walk to the car wash?" is literally about transportation mode selection, but pragmatically it is about accomplishing a car-related service. Models optimize for the literal framing.
+**FM2: Pragmatic Inference Failure.** Models process questions literally rather than pragmatically [17, 18]. The question "Should I drive or walk to the car wash?" is literally about transportation mode selection, but pragmatically it is about accomplishing a car-related service. Models optimize for the literal framing.
 
-**FM3: Goal Blindness.** Models fail to infer the unstated goal $g$ from the service context $c$ [29, 30]. They process the *decision variable* (drive vs. walk) without first establishing *what the trip is for* (washing the car). This is distinct from pragmatic failure—it is a failure of goal inference itself.
+**FM3: Goal Blindness.** Models fail to infer the unstated goal $g$ from the service context $c$ [26, 27]. They process the *decision variable* (drive vs. walk) without first establishing *what the trip is for* (washing the car). This is distinct from pragmatic failure—it is a failure of goal inference itself.
 
-**FM4: Parametric Heuristic Override.** Models over-rely on memorized heuristics from training data [12, 16]. The association "short distance → walk" is a strong prior that overrides context-specific reasoning. Even chain-of-thought prompting may not overcome this, as the model's "reasoning" may simply elaborate on the heuristic rather than questioning it.
+**FM4: Parametric Heuristic Override.** Models over-rely on memorized heuristics from training data [9, 13]. The association "short distance → walk" is a strong prior that overrides context-specific reasoning. Even chain-of-thought prompting may not overcome this, as the model's "reasoning" may simply elaborate on the heuristic rather than questioning it.
 
-**FM5: Grounding Deficit.** Without embodied experience, models lack robust representations of physical constraints [25, 26]. The constraint "a car cannot walk" requires understanding of physical affordances that text-only (and even vision-language) models may not adequately represent.
+**FM5: Grounding Deficit.** Without embodied experience, models lack robust representations of physical constraints [22, 23]. The constraint "a car cannot walk" requires understanding of physical affordances that text-only (and even vision-language) models may not adequately represent.
 
-**FM6: Knowledge Activation Failure.** Perhaps most critically, models *possess* the relevant knowledge but fail to *activate* it in context [11]. Every model "knows" that car washes service cars, but this knowledge is not retrieved when the question's framing triggers a different reasoning pathway. This is analogous to the "knowledgeable but inexperienced solver" phenomenon identified by Bian et al. [11].
+**FM6: Knowledge Activation Failure.** Perhaps most critically, models *possess* the relevant knowledge but fail to *activate* it in context [8]. Every model "knows" that car washes service cars, but this knowledge is not retrieved when the question's framing triggers a different reasoning pathway. This is analogous to the "knowledgeable but inexperienced solver" phenomenon identified by Bian et al. [8].
 
 ### 3.3 Relationship to Existing Frameworks
 
 Our formulation connects to several established AI research directions:
 
-- **Gricean Pragmatics** [5]: The Car Wash Problem violates Grice's maxim of relevance—the mention of "car wash" is only relevant if the car itself is involved. Models fail to draw this conversational implicature.
+- **Gricean Pragmatics** [2]: The Car Wash Problem violates Grice's maxim of relevance—the mention of "car wash" is only relevant if the car itself is involved. Models fail to draw this conversational implicature.
 
-- **Theory of Mind** [31, 32]: Correctly answering requires modeling the question-asker's mental state—specifically, their goal (washing the car) and their assumption that the responder will understand this goal.
+- **Theory of Mind** [28, 29]: Correctly answering requires modeling the question-asker's mental state—specifically, their goal (washing the car) and their assumption that the responder will understand this goal.
 
-- **Abductive Reasoning** [33]: The correct answer requires abducing the best explanation for *why* someone would go to a car wash (to have their car washed) and using this to constrain the answer.
+- **Abductive Reasoning** [30]: The correct answer requires abducing the best explanation for *why* someone would go to a car wash (to have their car washed) and using this to constrain the answer.
 
-- **Situated Reasoning** [22]: The question is situated in a specific real-world context (a person with a car near a car wash), and the correct answer depends on understanding this situation holistically rather than decomposing it into isolated factors.
+- **Situated Reasoning** [19]: The question is situated in a specific real-world context (a person with a car near a car wash), and the correct answer depends on understanding this situation holistically rather than decomposing it into isolated factors.
 
 ---
 
@@ -414,7 +414,7 @@ For reference, we report each model's response to the exact original viral quest
 | Gemini 2.5 Flash | **Drive (Correct)** | **Drive (Correct)** |
 | GPT-5 | Ambiguous (hedges) | **Drive (Correct)** |
 
-Gemini 2.5 Flash is the only model that correctly answers in both languages, consistent with media reports [3] that identified Gemini as one of the few models to pass the original Car Wash test. DeepSeek's language-dependent behavior further supports the data contamination hypothesis discussed in Section 6.3.
+Gemini 2.5 Flash is the only model that correctly answers in both languages, consistent with widely reported observations that identified Gemini as one of the few models to pass the original Car Wash test. DeepSeek's language-dependent behavior further supports the data contamination hypothesis discussed in Section 6.3.
 
 ### 6.6 Preliminary Discussion of Results
 
@@ -436,18 +436,18 @@ Despite the limited scope of these preliminary results (one domain, four models)
 
 ### 7.1 Implications for AI Safety and Deployment
 
-The Car Wash Problem, while humorous in isolation, has serious implications for the deployment of AI assistants in everyday decision-making. If a model cannot recognize that a car must be driven to a car wash, it may similarly fail in higher-stakes scenarios: recommending that a patient walk to an emergency room when they need an ambulance, suggesting a homeowner carry a broken refrigerator to a repair shop, or advising a parent to walk their feverish child through rain to a pharmacy. As AI systems are increasingly used for practical decision support [38], implicit goal reasoning is not merely an academic curiosity but a safety-critical capability.
+The Car Wash Problem, while humorous in isolation, has serious implications for the deployment of AI assistants in everyday decision-making. If a model cannot recognize that a car must be driven to a car wash, it may similarly fail in higher-stakes scenarios: recommending that a patient walk to an emergency room when they need an ambulance, suggesting a homeowner carry a broken refrigerator to a repair shop, or advising a parent to walk their feverish child through rain to a pharmacy. As AI systems are increasingly used for practical decision support [35], implicit goal reasoning is not merely an academic curiosity but a safety-critical capability.
 
 ### 7.2 Why Existing Benchmarks Miss This
 
-Our analysis in Section 2.2 reveals why the implicit goal reasoning deficit has gone undetected: existing commonsense benchmarks primarily test *knowledge recall* (does the model know that fire is hot?) or *script completion* (what happens next in a sequence?) rather than *goal-constrained decision-making* (what should you do given an unstated purpose?). The PIQA benchmark [4] comes closest with its "Goal → Solution" format, but its goals are *explicitly stated* ("To clean a shirt stain, you should..."), whereas IGR-Bench requires goals to be *inferred from context*.
+Our analysis in Section 2.2 reveals why the implicit goal reasoning deficit has gone undetected: existing commonsense benchmarks primarily test *knowledge recall* (does the model know that fire is hot?) or *script completion* (what happens next in a sequence?) rather than *goal-constrained decision-making* (what should you do given an unstated purpose?). The PIQA benchmark [1] comes closest with its "Goal → Solution" format, but its goals are *explicitly stated* ("To clean a shirt stain, you should..."), whereas IGR-Bench requires goals to be *inferred from context*.
 
 ### 7.3 Toward Solutions
 
 We identify several promising directions for improving implicit goal reasoning:
 
 - **Goal-aware pre-training**: Augmenting training data with explicit goal annotations for everyday scenarios, countering reporting bias.
-- **Pragmatic fine-tuning**: Training models on datasets that specifically require pragmatic inference, such as GRICE [23] and DiPlomat [22].
+- **Pragmatic fine-tuning**: Training models on datasets that specifically require pragmatic inference, such as GRICE [20] and DiPlomat [19].
 - **Retrieval-augmented reasoning**: Retrieving relevant world knowledge (e.g., "car washes service cars") before generating answers, potentially mitigating knowledge activation failure.
 - **Embodied simulation**: Using physical simulation or visual imagination to test whether proposed actions achieve implicit goals.
 - **Self-reflection prompting**: Encouraging models to explicitly ask "What is the purpose of this action?" before answering.
@@ -478,81 +478,75 @@ The Car Wash Problem reminds us that intelligence is not merely about knowledge 
 
 ## References
 
-[1] cnBeta. (2026). 走路还是开车去洗车？看似简单的"洗车问题"难倒一众AI. Retrieved from https://www.cnbeta.com.tw/articles/tech/1549344.htm
+[1] Bisk, Y., Zellers, R., Le Bras, R., Gao, J., & Choi, Y. (2020). PIQA: Reasoning about Physical Commonsense in Natural Language. In *Proceedings of AAAI 2020*. https://arxiv.org/abs/1911.11641
 
-[2] 163.com. (2026). 五十米外的真相：AI为何在"洗车难题"上集体抛锚？ Retrieved from https://www.163.com/dy/article/KLBTFR7U0556HT8V.html
+[2] Grice, H. P. (1975). Logic and Conversation. In *Syntax and Semantics*, Vol. 3, pp. 41–58. Academic Press.
 
-[3] Gamersky. (2026). 走路还是开车去洗车？洗车问题难倒一众AI. Retrieved from https://www.gamersky.com/news/202602/2090209.shtml
+[3] Davis, E. & Marcus, G. (2015). Commonsense reasoning and commonsense knowledge in artificial intelligence. *Communications of the ACM*, 58(9), 92–103.
 
-[4] Bisk, Y., Zellers, R., Le Bras, R., Gao, J., & Choi, Y. (2020). PIQA: Reasoning about Physical Commonsense in Natural Language. In *Proceedings of AAAI 2020*. https://arxiv.org/abs/1911.11641
+[4] Premack, D. & Woodruff, G. (1978). Does the chimpanzee have a theory of mind? *Behavioral and Brain Sciences*, 1(4), 515–526.
 
-[5] Grice, H. P. (1975). Logic and Conversation. In *Syntax and Semantics*, Vol. 3, pp. 41–58. Academic Press.
+[5] Williams, S. & Huckle, J. (2024). Easy Problems That LLMs Get Wrong. *arXiv preprint arXiv:2405.19616*. https://arxiv.org/abs/2405.19616
 
-[6] Davis, E. & Marcus, G. (2015). Commonsense reasoning and commonsense knowledge in artificial intelligence. *Communications of the ACM*, 58(9), 92–103.
+[6] Song, P., Han, P., & Goodman, N. (2026). Large Language Model Reasoning Failures. *Transactions on Machine Learning Research*. https://arxiv.org/abs/2602.06176
 
-[7] Premack, D. & Woodruff, G. (1978). Does the chimpanzee have a theory of mind? *Behavioral and Brain Sciences*, 1(4), 515–526.
+[7] Frontier LLMs Still Struggle with Simple Reasoning Tasks. (2025). *arXiv preprint arXiv:2507.07313*. https://arxiv.org/abs/2507.07313
 
-[8] Williams, S. & Huckle, J. (2024). Easy Problems That LLMs Get Wrong. *arXiv preprint arXiv:2405.19616*. https://arxiv.org/abs/2405.19616
+[8] Bian, N., Han, X., Sun, L., Lin, H., Lu, Y., He, B., Jiang, S., & Dong, B. (2023). ChatGPT is a Knowledgeable but Inexperienced Solver: An Investigation of Commonsense Problem in Large Language Models. In *Proceedings of LREC-COLING 2024*. https://arxiv.org/abs/2303.16421
 
-[9] Song, P., Han, P., & Goodman, N. (2026). Large Language Model Reasoning Failures. *Transactions on Machine Learning Research*. https://arxiv.org/abs/2602.06176
+[9] Yamin, K., Gupta, S., Ghosal, G. R., Lipton, Z. C., & Wilder, B. (2024). Failure Modes of LLMs for Causal Reasoning on Narratives. *arXiv preprint arXiv:2410.23884*. https://arxiv.org/abs/2410.23884
 
-[10] Frontier LLMs Still Struggle with Simple Reasoning Tasks. (2025). *arXiv preprint arXiv:2507.07313*. https://arxiv.org/abs/2507.07313
+[10] Do, Q. V., Li, J., Vuong, T.-D., Wang, Z., Song, Y., & Ma, X. (2024). What Really is Commonsense Knowledge? *arXiv preprint arXiv:2411.03964*. https://arxiv.org/abs/2411.03964
 
-[11] Bian, N., Han, X., Sun, L., Lin, H., Lu, Y., He, B., Jiang, S., & Dong, B. (2023). ChatGPT is a Knowledgeable but Inexperienced Solver: An Investigation of Commonsense Problem in Large Language Models. In *Proceedings of LREC-COLING 2024*. https://arxiv.org/abs/2303.16421
+[11] Talmor, A., Herzig, J., Lourie, N., & Berant, J. (2019). CommonsenseQA: A Question Answering Challenge Targeting Commonsense Knowledge. In *Proceedings of NAACL-HLT 2019*, pp. 4149–4158. https://aclanthology.org/N19-1421/
 
-[12] Yamin, K., Gupta, S., Ghosal, G. R., Lipton, Z. C., & Wilder, B. (2024). Failure Modes of LLMs for Causal Reasoning on Narratives. *arXiv preprint arXiv:2410.23884*. https://arxiv.org/abs/2410.23884
+[12] Zellers, R., Holtzman, A., Bisk, Y., Farhadi, A., & Choi, Y. (2019). HellaSwag: Can a Machine Really Finish Your Sentence? In *Proceedings of ACL 2019*. https://arxiv.org/abs/1905.07830
 
-[13] Do, Q. V., Li, J., Vuong, T.-D., Wang, Z., Song, Y., & Ma, X. (2024). What Really is Commonsense Knowledge? *arXiv preprint arXiv:2411.03964*. https://arxiv.org/abs/2411.03964
+[13] Sakaguchi, K., Le Bras, R., Bhagavatula, C., & Choi, Y. (2020). WinoGrande: An Adversarial Winograd Schema Challenge at Scale. In *Proceedings of AAAI 2020*. https://arxiv.org/abs/1907.10641
 
-[14] Talmor, A., Herzig, J., Lourie, N., & Berant, J. (2019). CommonsenseQA: A Question Answering Challenge Targeting Commonsense Knowledge. In *Proceedings of NAACL-HLT 2019*, pp. 4149–4158. https://aclanthology.org/N19-1421/
+[14] Davis, E. (2024). Benchmarks for Automated Commonsense Reasoning: A Survey. *ACM Computing Surveys*, 56(4). https://dl.acm.org/doi/10.1145/3615355
 
-[15] Zellers, R., Holtzman, A., Bisk, Y., Farhadi, A., & Choi, Y. (2019). HellaSwag: Can a Machine Really Finish Your Sentence? In *Proceedings of ACL 2019*. https://arxiv.org/abs/1905.07830
+[15] Nguyen, T. D. et al. (2025). A Large-Scale Evaluation of Commonsense Knowledge in Humans and Large Language Models. *arXiv preprint arXiv:2505.10309*. https://arxiv.org/abs/2505.10309
 
-[16] Sakaguchi, K., Le Bras, R., Bhagavatula, C., & Choi, Y. (2020). WinoGrande: An Adversarial Winograd Schema Challenge at Scale. In *Proceedings of AAAI 2020*. https://arxiv.org/abs/1907.10641
+[16] Li, X. L., Kuncoro, A., de Masson d'Autume, C., Blunsom, P., & Nematzadeh, A. (2022). A Systematic Investigation of Commonsense Knowledge in Large Language Models. In *Proceedings of EMNLP 2022*. https://arxiv.org/abs/2111.00607
 
-[17] Davis, E. (2024). Benchmarks for Automated Commonsense Reasoning: A Survey. *ACM Computing Surveys*, 56(4). https://dl.acm.org/doi/10.1145/3615355
+[17] Ma, B., Li, Y., Zhou, W., Gong, Z., Liu, Y. J., Jasinskaja, K., Friedrich, A., Hirschberg, J., Kreuter, F., & Plank, B. (2025). Pragmatics in the Era of Large Language Models: A Survey. In *Proceedings of ACL 2025*. https://aclanthology.org/2025.acl-long.425/
 
-[18] Nguyen, T. D. et al. (2025). A Large-Scale Evaluation of Commonsense Knowledge in Humans and Large Language Models. *arXiv preprint arXiv:2505.10309*. https://arxiv.org/abs/2505.10309
+[18] Cong, Y. (2024). Manner Implicatures in Large Language Models. *Scientific Reports*, 14. https://www.nature.com/articles/s41598-024-80571-3
 
-[19] Li, X. L., Kuncoro, A., de Masson d'Autume, C., Blunsom, P., & Nematzadeh, A. (2022). A Systematic Investigation of Commonsense Knowledge in Large Language Models. In *Proceedings of EMNLP 2022*. https://arxiv.org/abs/2111.00607
+[19] Li, H., Zhu, S.-C., & Zheng, Z. (2023). DiPlomat: A Dialogue Dataset for Situated Pragmatic Reasoning. In *NeurIPS 2023 Datasets and Benchmarks Track*. https://arxiv.org/abs/2306.09030
 
-[20] Ma, B., Li, Y., Zhou, W., Gong, Z., Liu, Y. J., Jasinskaja, K., Friedrich, A., Hirschberg, J., Kreuter, F., & Plank, B. (2025). Pragmatics in the Era of Large Language Models: A Survey. In *Proceedings of ACL 2025*. https://aclanthology.org/2025.acl-long.425/
+[20] Zheng, Z., Qiu, S., Fan, L., Zhu, Y., & Zhu, S.-C. (2021). GRICE: A Grammar-based Dataset for Recovering Implicature and Conversational Reasoning. In *Findings of ACL-IJCNLP 2021*, pp. 2074–2085. https://aclanthology.org/2021.findings-acl.182/
 
-[21] Cong, Y. (2024). Manner Implicatures in Large Language Models. *Scientific Reports*, 14. https://www.nature.com/articles/s41598-024-80571-3
+[21] Li, J., Fu, Y., Fan, L., Liu, J., Shu, Y., Qin, C., Yang, M., King, I., & Ying, R. (2025). Implicit Reasoning in Large Language Models: A Comprehensive Survey. *arXiv preprint arXiv:2509.02350*. https://arxiv.org/abs/2509.02350
 
-[22] Li, H., Zhu, S.-C., & Zheng, Z. (2023). DiPlomat: A Dialogue Dataset for Situated Pragmatic Reasoning. In *NeurIPS 2023 Datasets and Benchmarks Track*. https://arxiv.org/abs/2306.09030
+[22] Kwon, M., Hu, H., Myers, V., Karamcheti, S., Dragan, A., & Sadigh, D. (2024). Toward Grounded Commonsense Reasoning. In *Proceedings of ICRA 2024*. https://arxiv.org/abs/2306.08651
 
-[23] Zheng, Z., Qiu, S., Fan, L., Zhu, Y., & Zhu, S.-C. (2021). GRICE: A Grammar-based Dataset for Recovering Implicature and Conversational Reasoning. In *Findings of ACL-IJCNLP 2021*, pp. 2074–2085. https://aclanthology.org/2021.findings-acl.182/
+[23] Xu, Q., Peng, Y., Nastase, S. A., Chodorow, M., Wu, M., & Li, P. (2025). Large Language Models without Grounding Recover Non-Sensorimotor but Not Sensorimotor Features of Human Concepts. *Nature Human Behaviour*, 9. https://www.nature.com/articles/s41562-025-02203-8
 
-[24] Li, J., Fu, Y., Fan, L., Liu, J., Shu, Y., Qin, C., Yang, M., King, I., & Ying, R. (2025). Implicit Reasoning in Large Language Models: A Comprehensive Survey. *arXiv preprint arXiv:2509.02350*. https://arxiv.org/abs/2509.02350
+[24] Meng, F., Shao, W., Luo, L., Wang, Y., Chen, Y., Lu, Q., Yang, Y., Yang, T., Zhang, K., Qiao, Y., & Luo, P. (2024). PhyBench: A Physical Commonsense Benchmark for Evaluating Text-to-Image Models. *arXiv preprint arXiv:2406.11802*. https://arxiv.org/abs/2406.11802
 
-[25] Kwon, M., Hu, H., Myers, V., Karamcheti, S., Dragan, A., & Sadigh, D. (2024). Toward Grounded Commonsense Reasoning. In *Proceedings of ICRA 2024*. https://arxiv.org/abs/2306.08651
+[25] Fu, X., He, M., Lu, Y., Wang, W. Y., & Roth, D. (2024). Commonsense-T2I Challenge: Can Text-to-Image Generation Models Understand Commonsense? In *Proceedings of COLM 2024*. https://arxiv.org/abs/2406.07546
 
-[26] Xu, Q., Peng, Y., Nastase, S. A., Chodorow, M., Wu, M., & Li, P. (2025). Large Language Models without Grounding Recover Non-Sensorimotor but Not Sensorimotor Features of Human Concepts. *Nature Human Behaviour*, 9. https://www.nature.com/articles/s41562-025-02203-8
+[26] Everitt, T., Garbacea, C., Bellot, A., Richens, J., Papadatos, H., Campos, S., & Shah, R. (2025). Evaluating the Goal-Directedness of Large Language Models. *arXiv preprint arXiv:2504.11844*. https://arxiv.org/abs/2504.11844
 
-[27] Meng, F., Shao, W., Luo, L., Wang, Y., Chen, Y., Lu, Q., Yang, Y., Yang, T., Zhang, K., Qiao, Y., & Luo, P. (2024). PhyBench: A Physical Commonsense Benchmark for Evaluating Text-to-Image Models. *arXiv preprint arXiv:2406.11802*. https://arxiv.org/abs/2406.11802
+[27] Zhi-Xuan, T., Ying, L., Mansinghka, V., & Tenenbaum, J. B. (2024). Pragmatic Instruction Following and Goal Assistance via Cooperative Language-Guided Inverse Planning. In *Proceedings of AAMAS 2024*. https://arxiv.org/abs/2402.17930
 
-[28] Fu, X., He, M., Lu, Y., Wang, W. Y., & Roth, D. (2024). Commonsense-T2I Challenge: Can Text-to-Image Generation Models Understand Commonsense? In *Proceedings of COLM 2024*. https://arxiv.org/abs/2406.07546
+[28] Kosinski, M. (2024). Evaluating Large Language Models in Theory of Mind Tasks. *Proceedings of the National Academy of Sciences*, 121(45), e2405460121. https://www.pnas.org/doi/10.1073/pnas.2405460121
 
-[29] Everitt, T., Garbacea, C., Bellot, A., Richens, J., Papadatos, H., Campos, S., & Shah, R. (2025). Evaluating the Goal-Directedness of Large Language Models. *arXiv preprint arXiv:2504.11844*. https://arxiv.org/abs/2504.11844
+[29] Riemer, M., Ashktorab, Z., Bouneffouf, D., Das, P., Liu, M., Weisz, J. D., & Campbell, M. (2025). Position: Theory of Mind Benchmarks are Broken for Large Language Models. In *Proceedings of ICML 2025*. https://arxiv.org/abs/2412.19726
 
-[30] Zhi-Xuan, T., Ying, L., Mansinghka, V., & Tenenbaum, J. B. (2024). Pragmatic Instruction Following and Goal Assistance via Cooperative Language-Guided Inverse Planning. In *Proceedings of AAMAS 2024*. https://arxiv.org/abs/2402.17930
+[30] PARADISE: Evaluating Implicit Planning Skills of Language Models with a Benchmark for Action Understanding. (2024). In *Findings of ACL 2024*. https://aclanthology.org/2024.findings-acl.599.pdf
 
-[31] Kosinski, M. (2024). Evaluating Large Language Models in Theory of Mind Tasks. *Proceedings of the National Academy of Sciences*, 121(45), e2405460121. https://www.pnas.org/doi/10.1073/pnas.2405460121
+[31] Zellers, R., Bisk, Y., Farhadi, A., & Choi, Y. (2019). From Recognition to Cognition: Visual Commonsense Reasoning. In *Proceedings of CVPR 2019* (Oral). https://arxiv.org/abs/1811.10830
 
-[32] Riemer, M., Ashktorab, Z., Bouneffouf, D., Das, P., Liu, M., Weisz, J. D., & Campbell, M. (2025). Position: Theory of Mind Benchmarks are Broken for Large Language Models. In *Proceedings of ICML 2025*. https://arxiv.org/abs/2412.19726
+[32] Zhou, K., Lee, K., Misu, T., & Wang, X. (2024). ViCor: Bridging Visual Understanding and Commonsense Reasoning with Large Language Models. In *Findings of ACL 2024*. https://arxiv.org/abs/2310.05872
 
-[33] PARADISE: Evaluating Implicit Planning Skills of Language Models with a Benchmark for Action Understanding. (2024). In *Findings of ACL 2024*. https://aclanthology.org/2024.findings-acl.599.pdf
+[33] Yariv, G., Schwartz, I., Adi, Y., & Benaim, S. (2024). Improving Visual Commonsense in Language Models via Multiple Image Generation. *arXiv preprint arXiv:2406.13621*. https://arxiv.org/abs/2406.13621
 
-[34] Zellers, R., Bisk, Y., Farhadi, A., & Choi, Y. (2019). From Recognition to Cognition: Visual Commonsense Reasoning. In *Proceedings of CVPR 2019* (Oral). https://arxiv.org/abs/1811.10830
+[34] Kil, J., Mai, Z., Lee, J., Chowdhury, A., Wang, Z., Cheng, K., Wang, L., Liu, Y., & Chao, W.-L. (2024). MLLM-CompBench: A Comparative Reasoning Benchmark for Multimodal LLMs. In *NeurIPS 2024 Datasets and Benchmarks Track*. https://arxiv.org/abs/2407.16837
 
-[35] Zhou, K., Lee, K., Misu, T., & Wang, X. (2024). ViCor: Bridging Visual Understanding and Commonsense Reasoning with Large Language Models. In *Findings of ACL 2024*. https://arxiv.org/abs/2310.05872
-
-[36] Yariv, G., Schwartz, I., Adi, Y., & Benaim, S. (2024). Improving Visual Commonsense in Language Models via Multiple Image Generation. *arXiv preprint arXiv:2406.13621*. https://arxiv.org/abs/2406.13621
-
-[37] Kil, J., Mai, Z., Lee, J., Chowdhury, A., Wang, Z., Cheng, K., Wang, L., Liu, Y., & Chao, W.-L. (2024). MLLM-CompBench: A Comparative Reasoning Benchmark for Multimodal LLMs. In *NeurIPS 2024 Datasets and Benchmarks Track*. https://arxiv.org/abs/2407.16837
-
-[38] ETC Journal. (2026). As of January 2026, AI Chatbots Are Stuck in a Paradigmatic Box. Retrieved from https://etcjournal.com/2026/01/19/as-of-january-2026-ai-chatbots-are-stuck-in-a-paradigmatic-box/
+[35] ETC Journal. (2026). As of January 2026, AI Chatbots Are Stuck in a Paradigmatic Box. Retrieved from https://etcjournal.com/2026/01/19/as-of-january-2026-ai-chatbots-are-stuck-in-a-paradigmatic-box/
 
 ---
 
