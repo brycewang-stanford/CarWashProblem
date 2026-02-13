@@ -1,5 +1,7 @@
 # The Car Wash Problem: Benchmarking Implicit Goal Reasoning in LLMs
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18636697.svg)](https://doi.org/10.5281/zenodo.18636697)
+
 <p align="center">
   <img src="figures/fig1_carwash_overview.png" alt="The Car Wash Problem: Human vs AI reasoning" width="600">
 </p>
@@ -70,10 +72,12 @@ python scripts/analyze_results.py --output report
 If you use IGR-Bench or find this work useful, please cite:
 
 ```bibtex
-@article{wang2026carwash,
+@software{wang2026carwash,
   title={The Car Wash Problem: Benchmarking Implicit Goal Reasoning in Large Language and Vision-Language Models},
   author={Wang, Bryce},
-  year={2026}
+  year={2026},
+  doi={10.5281/zenodo.18636697},
+  url={https://doi.org/10.5281/zenodo.18636697}
 }
 ```
 

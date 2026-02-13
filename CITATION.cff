@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "The Car Wash Problem: Benchmarking Implicit Goal Reasoning in Large Language and Vision-Language Models"
+authors:
+  - family-names: Wang
+    given-names: Bryce
+repository-code: "https://github.com/brycewang-stanford/CarWashProblem"
+license: MIT
+version: "1.0"
+date-released: "2026-02-13"
+doi: "10.5281/zenodo.18636697"
